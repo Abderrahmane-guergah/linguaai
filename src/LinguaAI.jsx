@@ -729,6 +729,7 @@ export default function LinguaAI() {
 
   // Exam state — uses static pool, no API needed
   const [examPool,  setExamPool]  = useState([]);
+  const examPoolRef = useRef([]);   // ref so answer() closure always sees latest pool
   const [examIdx,   setExamIdx]   = useState(0);
   const [examScore, setExamScore] = useState(0);
   const [showExpl,  setShowExpl]  = useState(false);
@@ -761,6 +762,7 @@ export default function LinguaAI() {
   // ── Exam ──────────────────────────────────────────────────────
   const startExam = () => {
     const pool = getExamPool(lang.code);
+    examPoolRef.current = pool;
     setExamPool(pool);
     setExamIdx(0); setExamScore(0);
     setShowExpl(false); setChosenAns(null);
@@ -768,27 +770,30 @@ export default function LinguaAI() {
   };
 
   const answer = (idx) => {
-    if (showExpl || !examPool[examIdx]) return;
-    const q       = examPool[examIdx];
+    const pool = examPoolRef.current;
+    if (showExpl || !pool[examIdx]) return;
+    const q       = pool[examIdx];
     const correct = q.a === idx;
-    const newScore = correct ? examScore + 1 : examScore;
-    const newIdx   = examIdx + 1;
-    setChosenAns(idx); setShowExpl(true);
-
-    if (newIdx >= 10) {
-      setTimeout(() => {
-        const li = Math.min(6, Math.round((newScore / 10) * 6));
-        setLevel({ score:newScore, li, ...LEVELS[li] });
-        setExamScore(newScore);
-        setScreen("results");
-      }, 1400);
-    } else {
-      setExamScore(newScore);
-      setTimeout(() => {
-        setShowExpl(false); setChosenAns(null);
-        setExamIdx(newIdx);
-      }, 1400);
-    }
+    setChosenAns(idx);
+    setShowExpl(true);
+    setExamScore(prev => {
+      const newScore = correct ? prev + 1 : prev;
+      const newIdx   = examIdx + 1;
+      if (newIdx >= 10) {
+        setTimeout(() => {
+          const li = Math.min(6, Math.round((newScore / 10) * 6));
+          setLevel({ score:newScore, li, ...LEVELS[li] });
+          setScreen("results");
+        }, 1400);
+      } else {
+        setTimeout(() => {
+          setShowExpl(false);
+          setChosenAns(null);
+          setExamIdx(newIdx);
+        }, 1400);
+      }
+      return newScore;
+    });
   };
 
   const pickLevel = (li) => {
@@ -1123,14 +1128,14 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
             </div>
 
             {(() => {
-              const examQ = examPool[examIdx];
+              const examQ = examPool[examIdx] || examPoolRef.current[examIdx];
               if (!examQ) return (
                 <div style={{ ...card, padding:40, textAlign:"center", color:t.textMuted }}>
                   <button onClick={startExam} style={{ color:t.accent, background:"none", border:"none", cursor:"pointer", fontFamily:t.fontBody }}>Restart Exam</button>
                 </div>
               );
               return (
-                <div className="fade" style={{ ...card, padding:"32px 28px" }}>
+                <div key={examIdx} className="fade" style={{ ...card, padding:"32px 28px" }}>
                   <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
                     {examQ.topic && <Tag>{examQ.topic}</Tag>}
                     {examQ.cefr  && <Tag>{examQ.cefr}</Tag>}
