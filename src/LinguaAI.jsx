@@ -311,41 +311,220 @@ const uid   = () => Math.random().toString(36).slice(2,10);
 
 // ── CLAUDE API ─────────────────────────────────────────────────
 async function callClaude(messages, system) {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system, messages }),
-  });
-  const data = await res.json();
-  return data.content?.[0]?.text || "I'm unable to respond right now. Please try again.";
-}
-
-async function generateQuestion(langName, questionNumber, previousQuestions, lastWasCorrect) {
-  const difficulty = lastWasCorrect === null
-    ? "beginner to elementary level"
-    : lastWasCorrect
-      ? "harder than the previous question — escalate to the next CEFR level"
-      : "similar difficulty or slightly easier than the previous question";
-  const prevContext = previousQuestions.length > 0
-    ? `Previously asked (DO NOT REPEAT): ${previousQuestions.join(" | ")}`
-    : "This is the first question.";
-  const prompt = `Generate a rigorous academic placement question for ${langName} language assessment.
-Question number: ${questionNumber}/10. Difficulty: ${difficulty}. ${prevContext}
-
-Test ONE of: morphosyntax, phonology, register, pragmatics, idiomatic usage, reading comprehension, discourse structure, or complex grammar. Avoid trivial single-word translation questions.
-
-Respond ONLY with valid JSON, no markdown fences:
-{"question":"...","options":["A","B","C","D"],"correct":0,"explanation":"Academic explanation","topic":"Grammar/Morphology/etc","difficulty":"A1/A2/B1/B2/C1/C2"}`;
-
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:600, messages:[{role:"user",content:prompt}] }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, system, messages }),
     });
     const data = await res.json();
-    const text = (data.content?.[0]?.text || "").replace(/```json|```/g,"").trim();
-    return JSON.parse(text);
-  } catch { return null; }
+    return data.content?.[0]?.text || "I'm unable to respond right now. Please try again.";
+  } catch (e) {
+    console.error("callClaude error", e);
+    return "Connection error — please try again.";
+  }
+}
+
+// ── STATIC QUESTION BANK (instant, no API needed for exam) ────
+const QUESTIONS = {
+  es:[
+    {q:"What does 'Buenos días' mean?",o:["Good night","Good morning","Goodbye","Thank you"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Water' in Spanish?",o:["Leche","Jugo","Agua","Vino"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'I want water' in Spanish?",o:["Quiero agua","Me llamo agua","Tengo agua","Soy agua"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Plural of 'el libro'?",o:["los libros","las libras","el libros","los libro"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'She is pretty' in Spanish?",o:["Él es bonita","Ella es bonito","Ella es bonita","El es bonito"],a:2,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Translate: 'She speaks Spanish very well'",o:["Ella habla muy bien español","Ella escucha español","Ella come español","Ella corre español"],a:0,d:3,topic:"Translation",cefr:"B1"},
+    {q:"Tense of 'Estaba comiendo'?",o:["Present","Future","Past continuous","Subjunctive"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Correct subjunctive usage?",o:["Quiero que ella viene","Espero que ella venga","Pienso que ella venga","Sé que ella venga"],a:1,d:4,topic:"Subjunctive",cefr:"B2"},
+    {q:"'Se me olvidó' best means:",o:["I forgot it","It forgot me","I forgot myself","It slipped my mind"],a:3,d:4,topic:"Idioms",cefr:"B2"},
+    {q:"Which is correct? 'I would have gone if...'",o:["Habría ido si tuviera","Habría ido si tuviese","Hubiera ido si hubiera tenido","Both B and C are correct"],a:3,d:5,topic:"Conditional",cefr:"C1"},
+  ],
+  fr:[
+    {q:"'Bonjour' means?",o:["Goodbye","Thank you","Hello/Good day","Please"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Chat' in English?",o:["Dog","Cat","Bird","Fish"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'I am hungry' in French?",o:["J'ai faim","Je suis faim","J'ai froid","Je mange"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'She is beautiful' in French?",o:["Il est belle","Elle est beau","Elle est belle","Il est beau"],a:2,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'Maison' in English?",o:["Mouse","House","Table","Street"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"'We went to Paris yesterday'?",o:["Nous allons à Paris hier","Nous sommes allés à Paris hier","Nous irons à Paris hier","Nous allions Paris"],a:1,d:3,topic:"Past Tense",cefr:"B1"},
+    {q:"Irregular verb in passé composé?",o:["Manger","Aller","Parler","Finir"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"'Il faut que tu viennes' means?",o:["You should come","You must come","You want to come","You came"],a:1,d:4,topic:"Subjunctive",cefr:"B2"},
+    {q:"Correct subjunctive of 'être'?",o:["Je suis","Je serai","Je sois","Je serais"],a:2,d:4,topic:"Subjunctive",cefr:"B2"},
+    {q:"'Nonobstant' is used to mean?",o:["Therefore","Nevertheless","Although","Meanwhile"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  de:[
+    {q:"'Guten Morgen' means?",o:["Good evening","Good morning","Good night","Good luck"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in German?",o:["Bitte","Danke","Ja","Nein"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"Article for 'Frau'?",o:["der","das","die","ein"],a:2,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'I am learning German'?",o:["Ich lerne Deutsch","Ich spreche Deutsch","Ich habe Deutsch","Ich bin Deutsch"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Case after 'mit'?",o:["Nominativ","Akkusativ","Dativ","Genitiv"],a:2,d:3,topic:"Cases",cefr:"B1"},
+    {q:"Perfekt of 'gehen'?",o:["Ich habe gegangen","Ich bin gegangen","Ich habe gegangt","Ich war gegangen"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Grammatically correct?",o:["Ich kaufe ein neues Auto","Ich kaufe ein neuer Auto","Ich kaufe einen neues Auto","Ich kaufe einem neuen Auto"],a:0,d:4,topic:"Adjectives",cefr:"B2"},
+    {q:"'Es sei denn' means?",o:["Therefore","Unless","However","Although"],a:1,d:4,topic:"Conjunctions",cefr:"B2"},
+    {q:"Konjunktiv II of 'haben' (ich)?",o:["hätte","hatte","habe","gehabt"],a:0,d:5,topic:"Konjunktiv",cefr:"C1"},
+    {q:"'Gleichwohl' means?",o:["Similarly","Nevertheless","Likewise","Therefore"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  ja:[
+    {q:"'こんにちは' means?",o:["Goodbye","Thank you","Hello","Sorry"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'ありがとう' means?",o:["Please","Sorry","Excuse me","Thank you"],a:3,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"Subject marker particle?",o:["を wo","に ni","が ga","で de"],a:2,d:2,topic:"Particles",cefr:"A2"},
+    {q:"'I eat sushi'?",o:["寿司を食べます","寿司が飲みます","寿司に行きます","寿司で見ます"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Polite negative of 'tabemasu'?",o:["Tabemasen","Tabenai","Tabemasendeshita","Tabejanai"],a:0,d:3,topic:"Negation",cefr:"B1"},
+    {q:"て-form indicates?",o:["Past tense","Negative","Connecting actions","Future"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Honorific for someone else's action?",o:["します","なさいます","いたします","やります"],a:1,d:4,topic:"Keigo",cefr:"B2"},
+    {q:"'If it rains I won't go'?",o:["雨が降れば行きません","雨が降ると行きません","雨が降ったら行きません","All are acceptable"],a:3,d:4,topic:"Conditionals",cefr:"B2"},
+    {q:"Humble form of 'iru' (to be)?",o:["おります","いらっしゃいます","おられます","ございます"],a:0,d:5,topic:"Keigo",cefr:"C1"},
+    {q:"'にもかかわらず' means?",o:["Because of","In spite of","In order to","As a result of"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+  ],
+  zh:[
+    {q:"'你好' means?",o:["Thank you","Hello","Goodbye","Sorry"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Mandarin?",o:["对不起","谢谢","你好","再见"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'我爱你' means?",o:["I miss you","I love you","I need you","I see you"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"'I want to eat'?",o:["我想吃","我吃想","想我吃","吃我想"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Measure word for books?",o:["条 tiáo","本 běn","张 zhāng","个 gè"],a:1,d:3,topic:"Measure Words",cefr:"B1"},
+    {q:"Correct past-tense negation?",o:["我不去了","我没去","我不去过","我没有不去"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Particle '了' indicates?",o:["Future action","Completed/change of state","Ongoing action","Possibility"],a:1,d:4,topic:"Particles",cefr:"B2"},
+    {q:"'把' sentences emphasise?",o:["Questions","Object before verb","Possibility","Appearance"],a:1,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'尽管...还是...' expresses?",o:["Cause and effect","Concession","Condition","Purpose"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'不得不' means?",o:["Must not","Had better not","Have no choice but to","Would rather not"],a:2,d:5,topic:"Grammar",cefr:"C1"},
+  ],
+  ar:[
+    {q:"'مرحبا' means?",o:["Goodbye","Hello","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Yes' in Arabic?",o:["لا","نعم","ربما","شكرا"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Arabic?",o:["من فضلك","شكرا","مع السلامة","نعم"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"'كتاب' means?",o:["School","Pen","Book","Desk"],a:2,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Root pattern of 'كاتب' (writer)?",o:["ك-ت-ب","ك-ب-ت","ت-ك-ب","ب-ك-ت"],a:0,d:3,topic:"Morphology",cefr:"B1"},
+    {q:"Dual suffix '-ان' means?",o:["Plural","Feminine","Exactly two","Definite"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Imperative verb form?",o:["فَعَلَ","يَفْعَلُ","اِفْعَلْ","مَفْعُول"],a:2,d:4,topic:"Verbs",cefr:"B2"},
+    {q:"Broken plural of 'كتاب'?",o:["كتابات","أكتب","كُتُب","كتابون"],a:2,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'إذا' vs 'لو' — the difference?",o:["Same meaning","إذا=real condition, لو=hypothetical","لو=real condition, إذا=hypothetical","Both hypothetical only"],a:1,d:5,topic:"Conditionals",cefr:"C1"},
+    {q:"'المصدر الصريح' refers to?",o:["Verbal noun","Active participle","Passive verb","Broken plural"],a:0,d:5,topic:"Morphology",cefr:"C1"},
+  ],
+  it:[
+    {q:"'Ciao' means?",o:["Please","Hello/Goodbye","Thank you","Sorry"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Casa' in English?",o:["Street","House","Car","Food"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'I love pizza' in Italian?",o:["Io mangio pizza","Io amo la pizza","Io ho pizza","Io sono pizza"],a:1,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Plural of 'ragazzo'?",o:["ragazzi","ragazze","ragazzos","ragazzia"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Passato prossimo of 'andare'?",o:["Ho andato","Sono andato","Ero andato","Avevo andato"],a:1,d:3,topic:"Past Tense",cefr:"B1"},
+    {q:"Verb taking 'essere' in passato?",o:["Mangiare","Parlare","Venire","Scrivere"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"'Magari' means?",o:["Obviously","Maybe/I wish","Never","Always"],a:1,d:4,topic:"Vocabulary",cefr:"B2"},
+    {q:"'If I had known, I would have come'?",o:["Se sapessi vengo","Se sapevo venivo","Se avessi saputo sarei venuto","Se so vengo"],a:2,d:4,topic:"Conditional",cefr:"B2"},
+    {q:"'Congiuntivo trapassato' of 'essere' (io)?",o:["fossi stato","sia stato","ero stato","sarò stato"],a:0,d:5,topic:"Subjunctive",cefr:"C1"},
+    {q:"'Senonché' means?",o:["Therefore","However/except that","Meanwhile","Furthermore"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  pt:[
+    {q:"'Olá' means?",o:["Goodbye","Hello","Please","Sorry"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' (masc.) in Portuguese?",o:["Obrigada","Obrigado","Desculpe","Por favor"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'I speak Portuguese'?",o:["Eu como português","Eu falo português","Eu tenho português","Eu sou português"],a:1,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Ser vs estar?",o:["Ser=permanent estar=temporary","Ser=formal estar=informal","Completely different","Only ser in Brazil"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Future of 'falar' (I)?",o:["Falei","Falo","Falarei","Falava"],a:2,d:3,topic:"Future Tense",cefr:"B1"},
+    {q:"'I went' (ir) past?",o:["Eu ia","Eu fui","Eu vá","Eu irei"],a:1,d:3,topic:"Past Tense",cefr:"B1"},
+    {q:"Personal infinitive used for?",o:["Different-subject clauses","Formal writing","Replacing subjunctive","Past actions"],a:0,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'Embora' followed by?",o:["Indicative","Infinitive","Subjunctive","Conditional"],a:2,d:4,topic:"Subjunctive",cefr:"B2"},
+    {q:"'Futuro do pretérito' signals?",o:["Past habit","Conditional/hypothetical","Future certainty","Command"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'Outrossim' means?",o:["Otherwise","Furthermore","However","Meanwhile"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  ko:[
+    {q:"'안녕하세요' means?",o:["Goodbye","Thank you","Hello","Sorry"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'물' in English?",o:["Fire","Water","Wind","Earth"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"Particle '은/는' marks?",o:["Object","Topic","Location","Direction"],a:1,d:2,topic:"Particles",cefr:"A2"},
+    {q:"'I eat rice' in Korean?",o:["나는 밥을 먹어요","나는 밥이 먹어요","나는 밥에 먹어요","나는 밥으로 먹어요"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Polite present tense ending?",o:["-다","-아/어요","-았/었다","-겠다"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"'-고 싶다' expresses?",o:["Obligation","Desire","Ability","Permission"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Honorific subject suffix?",o:["-아/어요","-시-","-겠-","-았/었-"],a:1,d:4,topic:"Honorifics",cefr:"B2"},
+    {q:"'Although hard, I study'?",o:["어려워서 공부해요","어려우면 공부해요","어렵지만 공부해요","어렵고 공부해요"],a:2,d:4,topic:"Conjunctions",cefr:"B2"},
+    {q:"'-ㄹ/을수록' expresses?",o:["Contrast","The more...the more","Condition","Concession"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'간접화법' (indirect speech) past tense ending?",o:["-다고 했어요","-라고 했어요","-냐고 했어요","-자고 했어요"],a:0,d:5,topic:"Reported Speech",cefr:"C1"},
+  ],
+  ru:[
+    {q:"'Привет' means?",o:["Goodbye","Hi/Hello","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'вода' in English?",o:["Wine","Vodka","Water","Milk"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Меня зовут' means?",o:["I want","My name is","I am from","I like"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Case after 'в' (location)?",o:["Nominative","Accusative","Prepositional","Genitive"],a:2,d:2,topic:"Cases",cefr:"A2"},
+    {q:"Perfective vs imperfective?",o:["Past vs present","Completed vs ongoing","Formal vs informal","Singular vs plural"],a:1,d:3,topic:"Aspect",cefr:"B1"},
+    {q:"'I have a book' in Russian?",o:["Я имею книгу","У меня есть книга","Я есть книга","Моя книга есть"],a:1,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"'хотя' means?",o:["Because","Therefore","Although","Unless"],a:2,d:4,topic:"Conjunctions",cefr:"B2"},
+    {q:"Genitive plural of 'книга'?",o:["книги","книгов","книг","книгам"],a:2,d:4,topic:"Declension",cefr:"B2"},
+    {q:"Short-form adjective is used for?",o:["Attributive position","Predicative position","Plural only","Animate nouns"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'Несмотря на то что' means?",o:["In order that","Despite the fact that","Provided that","As soon as"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+  ],
+  hi:[
+    {q:"'नमस्ते' means?",o:["Goodbye","Hello/Greetings","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'पानी' in English?",o:["Fire","Sky","Water","Earth"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'My name is' in Hindi?",o:["मेरा नाम है","आपका नाम है","तुम्हारा नाम","नाम मेरा"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'धन्यवाद' means?",o:["Please","Sorry","Thank you","Excuse me"],a:2,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Hindi noun genders?",o:["3 genders","No gender","Masculine or feminine only","Only pronouns have gender"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"Word order in Hindi?",o:["S+V+O","V+S+O","S+O+V","O+S+V"],a:2,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"'ने' (ne) indicates?",o:["Future","Ergative past transitive marker","Plural","Negation"],a:1,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'She would have come if she had known'?",o:["अगर उसे पता होता तो वो आती","वो आई क्योंकि पता था","उसे पता है वो आएगी","वो आएगी अगर पता होगा"],a:0,d:4,topic:"Conditional",cefr:"B2"},
+    {q:"Subjunctive ('संभाव्य') mood used when?",o:["Certainty","Wish/doubt/possibility","Commands only","Past events"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'यद्यपि...तथापि' means?",o:["If...then","Although...nevertheless","Either...or","Neither...nor"],a:1,d:5,topic:"Conjunctions",cefr:"C1"},
+  ],
+  nl:[
+    {q:"'Hallo' means?",o:["Goodbye","Hello","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Dutch?",o:["Alsjeblieft","Dankjewel","Sorry","Hoi"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"Two Dutch articles?",o:["der/das","de/het","le/la","el/la"],a:1,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'I speak Dutch'?",o:["Ik spreek Nederlands","Ik ben Nederlands","Ik heb Nederlands","Ik ga Nederlands"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Past tense of 'gaan'?",o:["Ik ginde","Ik ging","Ik ben gegaan","Ik gaande"],a:1,d:3,topic:"Past Tense",cefr:"B1"},
+    {q:"Verb in subordinate clause goes?",o:["First","Second","At the end","Anywhere"],a:2,d:3,topic:"Word Order",cefr:"B1"},
+    {q:"'Toch' expresses?",o:["Certainly not","Emphasis/contradiction","Only","Already"],a:1,d:4,topic:"Particles",cefr:"B2"},
+    {q:"Diminutive of 'boek'?",o:["Boekje","Boekken","Boekkie","Boekie"],a:0,d:4,topic:"Diminutives",cefr:"B2"},
+    {q:"'Zouden' is used for?",o:["Present habit","Conditional/reported speech","Future certainty","Commands"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'Hoewel' introduces?",o:["A result clause","A concessive clause","A purpose clause","A time clause"],a:1,d:5,topic:"Conjunctions",cefr:"C1"},
+  ],
+  tr:[
+    {q:"'Merhaba' means?",o:["Goodbye","Hello","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Su' in English?",o:["Fire","Sun","Water","Sky"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'I eat bread' in Turkish?",o:["Ekmek yiyorum","Ben ekmek","Yiyorum ekmek","Ekmek ben"],a:0,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"'Teşekkür ederim' means?",o:["Please","Thank you","Sorry","Goodbye"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Suffix for 'at/in a place'?",o:["-den/-dan","-e/-a","-de/-da","-in/-ın"],a:2,d:3,topic:"Cases",cefr:"B1"},
+    {q:"Vowel harmony means?",o:["Matching pitch","Suffixes match root vowels","Equal syllables","Consonants adapt"],a:1,d:3,topic:"Phonology",cefr:"B1"},
+    {q:"Conditional suffix?",o:["-iyor","-di","-se/-sa","-ecek"],a:2,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'I couldn't come because I was busy'?",o:["Meşgul olduğum için gelemedim","Gelmek istedim ama meşguldüm","Gelmeyeceğim çünkü meşgulüm","Meşgul değilim geldim"],a:0,d:4,topic:"Complex Sentences",cefr:"B2"},
+    {q:"'-mış' suffix indicates?",o:["Direct past experience","Reported/hearsay past","Future intention","Condition"],a:1,d:5,topic:"Evidentiality",cefr:"C1"},
+    {q:"'Gerundium' ('-dığı için') expresses?",o:["Purpose","Causal subordination","Concession","Manner"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+  ],
+  pl:[
+    {q:"'Cześć' means?",o:["Goodbye","Thank you","Hi/Hello","Please"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Woda' in English?",o:["Wind","Water","Vodka","Wool"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Polish?",o:["Proszę","Dziękuję","Przepraszam","Cześć"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Polish past verbs agree in?",o:["Number only","Gender only","Number & gender","Neither"],a:2,d:2,topic:"Grammar",cefr:"A2"},
+    {q:"Case after 'do' (to/of)?",o:["Nominative","Accusative","Genitive","Dative"],a:2,d:3,topic:"Cases",cefr:"B1"},
+    {q:"'To write' aspect pair?",o:["pisać/napisać","pisać/napisywać","napisać/pisać","piszę/napisuję"],a:0,d:3,topic:"Aspect",cefr:"B1"},
+    {q:"'I've lived in Warsaw for 3 years'?",o:["Mieszkałem w Warszawie 3 lata","Mieszkam w Warszawie od 3 lat","Będę mieszkać w Warszawie 3 lata","Mieszkałbym w Warszawie 3 lat"],a:1,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"Genitive plural of 'książka'?",o:["książki","książkę","książek","książkom"],a:2,d:4,topic:"Declension",cefr:"B2"},
+    {q:"'Tryb przypuszczający' is used for?",o:["Commands","Conditionals/wishes","Reported speech","Future only"],a:1,d:5,topic:"Mood",cefr:"C1"},
+    {q:"'Aczkolwiek' means?",o:["Therefore","Although","Furthermore","Unless"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  el:[
+    {q:"'Γεια σας' means?",o:["Goodbye","Thank you","Hello (formal)","Please"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Νερό' in English?",o:["Fire","Sea","Water","Night"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Greek?",o:["Παρακαλώ","Ευχαριστώ","Συγγνώμη","Γεια"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"'Τι κάνεις;' means?",o:["Where are you?","What's your name?","How are you?","What do you want?"],a:2,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Case for direct object?",o:["Nominative","Genitive","Accusative","Vocative"],a:2,d:3,topic:"Cases",cefr:"B1"},
+    {q:"'Έφαγα' tense?",o:["Present","Imperfect","Simple past (aorist)","Future"],a:2,d:3,topic:"Past Tense",cefr:"B1"},
+    {q:"Particle 'να' indicates?",o:["Past tense","Subjunctive/wish","Question","Negation"],a:1,d:4,topic:"Grammar",cefr:"B2"},
+    {q:"'I wish I could come'?",o:["Μπορώ να έρθω","Ήθελα να έρθω","Μακάρι να μπορούσα να έρθω","Θα έρθω αν μπορώ"],a:2,d:4,topic:"Subjunctive",cefr:"B2"},
+    {q:"'Αόριστος' vs 'Παρακείμενος'?",o:["Same meaning","Aorist=simple past, Parakeimenos=resultant state","Aorist=recent, Parakeimenos=distant","No real difference"],a:1,d:5,topic:"Aspect",cefr:"C1"},
+    {q:"'Εντούτοις' means?",o:["Therefore","Nevertheless","Furthermore","Meanwhile"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+  sv:[
+    {q:"'Hej' means?",o:["Goodbye","Hello/Hi","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Vatten' in English?",o:["Wine","Winter","Water","Wind"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
+    {q:"'Thank you' in Swedish?",o:["Förlåt","Tack","Snälla","Varsågod"],a:1,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"'Hur mår du?' means?",o:["Where are you?","What do you do?","How are you?","Who are you?"],a:2,d:2,topic:"Vocabulary",cefr:"A2"},
+    {q:"Definite form of 'en bil'?",o:["bilen","bils","bilet","bilt"],a:0,d:3,topic:"Grammar",cefr:"B1"},
+    {q:"V2 word order means?",o:["Always start with verb","Verb always second in main clause","Two verbs per sentence","Verbs at end"],a:1,d:3,topic:"Word Order",cefr:"B1"},
+    {q:"'Lagom' means?",o:["Very much","Not at all","Just the right amount","Too much"],a:2,d:4,topic:"Vocabulary",cefr:"B2"},
+    {q:"Past tense of 'skriva'?",o:["Skrivade","Skrev","Skriven","Skrivit"],a:1,d:4,topic:"Past Tense",cefr:"B2"},
+    {q:"'Supinum' is used with?",o:["'vara' (to be)","'ha' (to have)","'bli' (to become)","'kunna' (can)"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'Oaktat' means?",o:["Therefore","Regardless of","Furthermore","Meanwhile"],a:1,d:5,topic:"Register",cefr:"C1"},
+  ],
+};
+
+// ── Get shuffled question pool for a language, sorted by difficulty ──
+function getExamPool(langCode) {
+  const qs = QUESTIONS[langCode] || QUESTIONS["es"];
+  return [...qs].sort((a, b) => a.d - b.d);
 }
 
 // ── BASE CSS (animations + structural only, no colors) ─────────
@@ -548,15 +727,12 @@ export default function LinguaAI() {
   const [history, setHistory] = useState([]);
   const [search,  setSearch]  = useState("");
 
-  // Exam state
-  const [examQ,       setExamQ]       = useState(null);
-  const [examIdx,     setExamIdx]     = useState(0);
-  const [examScore,   setExamScore]   = useState(0);
-  const [examPrev,    setExamPrev]    = useState([]);
-  const [examLoading, setExamLoading] = useState(false);
-  const [lastCorrect, setLastCorrect] = useState(null);
-  const [showExpl,    setShowExpl]    = useState(false);
-  const [chosenAns,   setChosenAns]   = useState(null);
+  // Exam state — uses static pool, no API needed
+  const [examPool,  setExamPool]  = useState([]);
+  const [examIdx,   setExamIdx]   = useState(0);
+  const [examScore, setExamScore] = useState(0);
+  const [showExpl,  setShowExpl]  = useState(false);
+  const [chosenAns, setChosenAns] = useState(null);
 
   const chatEnd  = useRef(null);
   const inputRef = useRef(null);
@@ -583,19 +759,19 @@ export default function LinguaAI() {
   const pickLang = (l) => { setLang(l); setGoals([]); setScreen("questionnaire"); };
 
   // ── Exam ──────────────────────────────────────────────────────
-  const startExam = async () => {
-    setExamIdx(0); setExamScore(0); setExamPrev([]); setLastCorrect(null);
+  const startExam = () => {
+    const pool = getExamPool(lang.code);
+    setExamPool(pool);
+    setExamIdx(0); setExamScore(0);
     setShowExpl(false); setChosenAns(null);
-    setScreen("exam"); setExamLoading(true);
-    const q = await generateQuestion(lang.name, 1, [], null);
-    setExamQ(q); setExamLoading(false);
+    setScreen("exam");
   };
 
-  const answer = async (idx) => {
-    if (showExpl || !examQ) return;
-    const correct  = examQ.correct === idx;
+  const answer = (idx) => {
+    if (showExpl || !examPool[examIdx]) return;
+    const q       = examPool[examIdx];
+    const correct = q.a === idx;
     const newScore = correct ? examScore + 1 : examScore;
-    const newPrev  = [...examPrev, examQ.question];
     const newIdx   = examIdx + 1;
     setChosenAns(idx); setShowExpl(true);
 
@@ -605,16 +781,13 @@ export default function LinguaAI() {
         setLevel({ score:newScore, li, ...LEVELS[li] });
         setExamScore(newScore);
         setScreen("results");
-      }, 1800);
+      }, 1400);
     } else {
       setExamScore(newScore);
-      setTimeout(async () => {
+      setTimeout(() => {
         setShowExpl(false); setChosenAns(null);
-        setExamIdx(newIdx); setExamLoading(true);
-        const q = await generateQuestion(lang.name, newIdx + 1, newPrev, correct);
-        setExamQ(q); setExamLoading(false);
-        setLastCorrect(correct); setExamPrev(newPrev);
-      }, 1800);
+        setExamIdx(newIdx);
+      }, 1400);
     }
   };
 
@@ -626,30 +799,29 @@ export default function LinguaAI() {
   // ── Chat ──────────────────────────────────────────────────────
   const buildSys = useCallback(() => {
     const gl = goals.map(g => GOALS.find(x => x.id===g)?.label).filter(Boolean).join(", ") || "General proficiency";
-    const levelDesc = (level?.score !== null && level?.score !== undefined)
-      ? `${level?.cefr} (${level?.name}, placement score ${level?.score}/10)`
-      : `${level?.cefr} (${level?.name}, self-assessed)`;
+    const scoreNote = (level?.score !== null && level?.score !== undefined)
+      ? `placement exam score ${level?.score}/10`
+      : "self-assessed";
     const li = level?.li ?? 0;
-    const depthNote = li <= 1
-      ? "keep everything simple and friendly — celebrate every small win, introduce vocabulary through easy real-life scenarios, never overwhelm"
+    const depthGuide = li <= 1
+      ? "Keep everything simple and friendly. Celebrate every win. Introduce words through easy real-life scenarios. Never overwhelm them."
       : li <= 3
-      ? "balance encouragement with gentle challenge — introduce grammar patterns through conversation not dry rules, use real examples tied to their goals"
-      : "engage as near-equals — discuss nuance, idioms, cultural subtext, and register differences, push for precision and sophistication";
-    return `You are an expert ${lang?.name} language tutor. You are warm, curious, patient, and genuinely passionate about language.
+      ? "Balance encouragement with gentle challenge. Teach grammar through conversation, not dry rules. Tie examples to their goals."
+      : "Engage as near-equals. Explore nuance, idioms, cultural register, and sophisticated expression. Push for precision.";
+    return `You are a warm, expert ${lang?.name} language tutor. You love languages and genuinely care about your students.
 
-Student profile: ${levelDesc} | Goals: ${gl} | Language: ${lang?.name} ${lang?.flag}
+Student: CEFR ${level?.cefr} — ${level?.name} (${scoreNote}) | Goals: ${gl} | Learning: ${lang?.name}
 
-Teaching style:
-- Write like a real person, not a textbook. Flowing, natural prose only — no bullet lists or rigid structure.
-- Be genuinely interested in the student. Reference their goals naturally throughout the lesson.
-- At their level: ${depthNote}.
-- Correct mistakes gently and naturally — weave the correct form into your reply and briefly explain why, never make them feel bad.
-- Always end with ONE engaging question or a small practical exercise to keep the conversation going.
-- Use ${lang?.name} examples liberally, always with clear English context. Make the language feel alive.
-- Keep each reply to 3–4 paragraphs — focused, warm, and digestible.
-- Never use headers, bullet points, or numbered lists. Just talk to them.
+How to teach:
+- Write like a real person having a conversation, not a textbook. No bullet points or headers — just flowing, natural prose.
+- ${depthGuide}
+- Correct mistakes gently by using the correct form naturally in your reply, then briefly noting why. Never make them feel bad.
+- Tie every lesson moment to their goals: ${gl}. Make it feel immediately useful.
+- Use ${lang?.name} examples throughout, always with clear English context so they understand.
+- End every single reply with ONE question or a small practical exercise to keep the conversation going.
+- Keep replies to 3–4 paragraphs max — warm, focused, and energising.
 
-First message: Greet them warmly, acknowledge their level and goals naturally (not like reading a form), then immediately dive into something genuinely interesting and useful for their first lesson. Make them excited to be here.`;
+First message: Greet them warmly. Naturally acknowledge their level and goals (not like reading a form). Then jump straight into something genuinely useful and interesting for lesson 1. Make them excited to learn.`;
   }, [lang, level, goals]);
 
   const startChat = async () => {
@@ -950,60 +1122,56 @@ First message: Greet them warmly, acknowledge their level and goals naturally (n
               </div>
             </div>
 
-            {examLoading ? (
-              <div style={{ ...card, padding:"60px 30px", textAlign:"center" }}>
-                <div style={{ display:"flex", gap:6, justifyContent:"center", marginBottom:16 }}>
-                  <div className="dot" style={{ width:7, height:7, borderRadius:"50%", background:t.textMuted }}/>
-                  <div className="dot" style={{ width:7, height:7, borderRadius:"50%", background:t.textMuted }}/>
-                  <div className="dot" style={{ width:7, height:7, borderRadius:"50%", background:t.textMuted }}/>
+            {(() => {
+              const examQ = examPool[examIdx];
+              if (!examQ) return (
+                <div style={{ ...card, padding:40, textAlign:"center", color:t.textMuted }}>
+                  <button onClick={startExam} style={{ color:t.accent, background:"none", border:"none", cursor:"pointer", fontFamily:t.fontBody }}>Restart Exam</button>
                 </div>
-                <div style={{ fontSize:11, color:t.textDim, letterSpacing:2, fontFamily:t.fontMono }}>GENERATING QUESTION</div>
-              </div>
-            ) : examQ ? (
-              <div className="fade" style={{ ...card, padding:"32px 28px" }}>
-                <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
-                  {examQ.topic     && <Tag>{examQ.topic}</Tag>}
-                  {examQ.difficulty && <Tag>{examQ.difficulty}</Tag>}
-                </div>
-                <h2 style={{ fontSize:18, fontFamily:t.fonts, fontWeight:400, marginBottom:26, lineHeight:1.6, color:t.textHeading }}>
-                  {examQ.question}
-                </h2>
-                <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:showExpl ? 20 : 0 }}>
-                  {examQ.options?.map((opt, i) => {
-                    let bg = t.bgInput, border = t.border, color = t.text;
-                    if (showExpl) {
-                      if (i === examQ.correct) { bg = t.successBg; border = t.successBorder; color = t.successText; }
-                      else if (i === chosenAns) { bg = t.wrongBg; border = t.wrongBorder; color = t.wrongText; }
-                    }
-                    return (
-                      <button key={i} className="opt-btn" onClick={() => answer(i)} disabled={showExpl}
-                        style={{ background:bg, border:`1px solid ${border}`, borderRadius:10,
-                          padding:"13px 18px", color, textAlign:"left", fontSize:13, cursor:"pointer",
-                          display:"flex", alignItems:"center", gap:14, fontFamily:t.fontBody }}>
-                        <span style={{ fontSize:10, width:20, textAlign:"center", color:t.textDim, flexShrink:0, fontFamily:t.fontMono }}>
-                          {["A","B","C","D"][i]}
-                        </span>
-                        {opt}
-                        {showExpl && i === examQ.correct && <span style={{ marginLeft:"auto" }}>✓</span>}
-                        {showExpl && i === chosenAns && i !== examQ.correct && <span style={{ marginLeft:"auto" }}>✗</span>}
-                      </button>
-                    );
-                  })}
-                </div>
-                {showExpl && examQ.explanation && (
-                  <div className="fade" style={{ background:t.bgInput, border:`1px solid ${t.border}`,
-                    borderRadius:10, padding:"14px 16px", marginTop:4 }}>
-                    <div style={{ fontSize:9, color:t.textMuted, letterSpacing:2, textTransform:"uppercase", marginBottom:6, fontFamily:t.fontMono }}>Explanation</div>
-                    <div style={{ fontSize:12, color:t.textMuted, lineHeight:1.7, fontWeight:300 }}>{examQ.explanation}</div>
+              );
+              return (
+                <div className="fade" style={{ ...card, padding:"32px 28px" }}>
+                  <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
+                    {examQ.topic && <Tag>{examQ.topic}</Tag>}
+                    {examQ.cefr  && <Tag>{examQ.cefr}</Tag>}
                   </div>
-                )}
-              </div>
-            ) : (
-              <div style={{ ...card, padding:40, textAlign:"center", color:t.textMuted }}>
-                Failed to generate question.{" "}
-                <button onClick={startExam} style={{ color:t.accent, background:"none", border:"none", cursor:"pointer", fontFamily:t.fontBody }}>Retry</button>
-              </div>
-            )}
+                  <h2 style={{ fontSize:18, fontFamily:t.fonts, fontWeight:400, marginBottom:26, lineHeight:1.6, color:t.textHeading }}>
+                    {examQ.q}
+                  </h2>
+                  <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:showExpl ? 20 : 0 }}>
+                    {examQ.o.map((opt, i) => {
+                      let bg = t.bgInput, border = t.border, color = t.text;
+                      if (showExpl) {
+                        if (i === examQ.a)   { bg = t.successBg; border = t.successBorder; color = t.successText; }
+                        else if (i === chosenAns) { bg = t.wrongBg; border = t.wrongBorder; color = t.wrongText; }
+                      }
+                      return (
+                        <button key={i} className="opt-btn" onClick={() => answer(i)} disabled={showExpl}
+                          style={{ background:bg, border:`1px solid ${border}`, borderRadius:10,
+                            padding:"13px 18px", color, textAlign:"left", fontSize:13, cursor:"pointer",
+                            display:"flex", alignItems:"center", gap:14, fontFamily:t.fontBody }}>
+                          <span style={{ fontSize:10, width:20, textAlign:"center", color:t.textDim, flexShrink:0, fontFamily:t.fontMono }}>
+                            {["A","B","C","D"][i]}
+                          </span>
+                          {opt}
+                          {showExpl && i === examQ.a && <span style={{ marginLeft:"auto" }}>✓</span>}
+                          {showExpl && i === chosenAns && i !== examQ.a && <span style={{ marginLeft:"auto" }}>✗</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {showExpl && (
+                    <div className="fade" style={{ background:t.bgInput, border:`1px solid ${t.border}`,
+                      borderRadius:10, padding:"14px 16px", marginTop:4 }}>
+                      <div style={{ fontSize:9, color:t.textMuted, letterSpacing:2, textTransform:"uppercase", marginBottom:6, fontFamily:t.fontMono }}>Explanation</div>
+                      <div style={{ fontSize:12, color:t.textMuted, lineHeight:1.7, fontWeight:300 }}>
+                        The correct answer is <strong style={{color:t.successText}}>{examQ.o[examQ.a]}</strong>. {examQ.topic} — {examQ.cefr} level.
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
 
