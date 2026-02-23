@@ -42,290 +42,131 @@ const LEVELS = {
 // ── THEMES ─────────────────────────────────────────────────────
 const THEMES = {
   slate: {
-    id: "slate",
-    label: "Slate",
-    preview: ["#08090e","#e2e8f0","#6366f1"],
-    bg: "#08090e",
-    bgCard: "rgba(15,17,26,.8)",
-    bgCardHover: "rgba(15,17,26,.95)",
-    bgInput: "rgba(148,163,184,.04)",
-    bgNav: "rgba(8,9,14,.88)",
-    bgMsg: "rgba(15,17,26,.8)",
-    bgUserMsg: "rgba(226,232,240,.06)",
-    border: "rgba(148,163,184,.09)",
-    borderHover: "rgba(148,163,184,.22)",
-    borderInput: "rgba(148,163,184,.12)",
-    borderFocus: "rgba(148,163,184,.4)",
-    borderUserMsg: "rgba(226,232,240,.12)",
-    borderAssistMsg: "rgba(148,163,184,.07)",
-    text: "#cbd5e1",
-    textHeading: "#e2e8f0",
-    textMuted: "#475569",
-    textDim: "#334155",
-    textVeryDim: "#1e293b",
-    accent: "#e2e8f0",
-    accentText: "#08090e",
-    accentMuted: "rgba(226,232,240,.08)",
-    accentBorder: "rgba(226,232,240,.2)",
-    logo: "#e2e8f0",
-    logoBox: "#e2e8f0",
-    logoBoxText: "#08090e",
-    gridLine: "rgba(148,163,184,.025)",
-    gradientTop: "rgba(99,102,241,.07)",
-    btnPrimary: "#e2e8f0",
-    btnPrimaryText: "#08090e",
-    btnGhost: "rgba(148,163,184,.05)",
-    btnGhostText: "#64748b",
-    scrollThumb: "rgba(148,163,184,.2)",
-    dotReady: "#4ade80",
-    dotLoading: "#f59e0b",
-    errorBg: "rgba(248,113,113,.06)",
-    errorBorder: "rgba(248,113,113,.15)",
-    errorText: "#f87171",
-    successBorder: "rgba(74,222,128,.25)",
-    successBg: "rgba(74,222,128,.07)",
-    successText: "#4ade80",
-    wrongBorder: "rgba(248,113,113,.2)",
-    wrongBg: "rgba(248,113,113,.06)",
-    wrongText: "#f87171",
-    fonts: `'DM Serif Display',serif`,
-    fontBody: `'Instrument Sans',sans-serif`,
-    fontMono: `'DM Mono',monospace`,
-    googleFonts: "DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600",
+    id:"slate", label:"Slate", preview:["#08090e","#e2e8f0","#6366f1"],
+    bg:"#08090e", bgCard:"rgba(15,17,26,.8)", bgCardHover:"rgba(22,25,38,.95)",
+    bgInput:"rgba(148,163,184,.05)", bgNav:"rgba(8,9,14,.9)", bgMsg:"rgba(15,17,26,.8)",
+    bgUserMsg:"rgba(226,232,240,.06)", border:"rgba(148,163,184,.1)", borderHover:"rgba(148,163,184,.25)",
+    borderInput:"rgba(148,163,184,.13)", borderFocus:"rgba(148,163,184,.45)",
+    borderUserMsg:"rgba(226,232,240,.14)", borderAssistMsg:"rgba(148,163,184,.08)",
+    text:"#cbd5e1", textHeading:"#e2e8f0", textMuted:"#475569", textDim:"#334155", textVeryDim:"#1e293b",
+    accent:"#e2e8f0", accentText:"#08090e", accentMuted:"rgba(226,232,240,.08)", accentBorder:"rgba(226,232,240,.22)",
+    logo:"#e2e8f0", logoBox:"#e2e8f0", logoBoxText:"#08090e",
+    gridLine:"rgba(148,163,184,.028)", gradientTop:"rgba(99,102,241,.08)",
+    btnPrimary:"#e2e8f0", btnPrimaryText:"#08090e", btnGhost:"rgba(148,163,184,.06)", btnGhostText:"#64748b",
+    scrollThumb:"rgba(148,163,184,.2)", dotReady:"#4ade80", dotLoading:"#f59e0b",
+    errorBg:"rgba(248,113,113,.07)", errorBorder:"rgba(248,113,113,.18)", errorText:"#f87171",
+    successBorder:"rgba(74,222,128,.28)", successBg:"rgba(74,222,128,.08)", successText:"#4ade80",
+    wrongBorder:"rgba(248,113,113,.22)", wrongBg:"rgba(248,113,113,.07)", wrongText:"#f87171",
+    fonts:`'DM Serif Display',serif`, fontBody:`'Instrument Sans',sans-serif`, fontMono:`'DM Mono',monospace`,
   },
   parchment: {
-    id: "parchment",
-    label: "Parchment",
-    preview: ["#080810","#c4a882","#8b6a3a"],
-    bg: "#080810",
-    bgCard: "rgba(255,255,255,.035)",
-    bgCardHover: "rgba(255,255,255,.055)",
-    bgInput: "rgba(255,255,255,.05)",
-    bgNav: "rgba(8,8,16,.9)",
-    bgMsg: "rgba(255,255,255,.05)",
-    bgUserMsg: "rgba(196,168,130,.1)",
-    border: "rgba(255,255,255,.08)",
-    borderHover: "rgba(196,168,130,.35)",
-    borderInput: "rgba(255,255,255,.11)",
-    borderFocus: "rgba(196,168,130,.5)",
-    borderUserMsg: "rgba(196,168,130,.27)",
-    borderAssistMsg: "rgba(255,255,255,.07)",
-    text: "#e8dcc8",
-    textHeading: "#f0ead6",
-    textMuted: "#7a7060",
-    textDim: "#5a4a30",
-    textVeryDim: "#3a3020",
-    accent: "#c4a882",
-    accentText: "#080810",
-    accentMuted: "rgba(196,168,130,.13)",
-    accentBorder: "rgba(196,168,130,.5)",
-    logo: "#e8dcc8",
-    logoBox: "linear-gradient(135deg,#c4a882,#8b6a3a)",
-    logoBoxText: "#080810",
-    gridLine: "rgba(196,168,130,.018)",
-    gradientTop: "rgba(120,80,30,.1)",
-    btnPrimary: "linear-gradient(135deg,#c4a882,#8b6a3a)",
-    btnPrimaryText: "#080810",
-    btnGhost: "rgba(255,255,255,.05)",
-    btnGhostText: "#6a5a40",
-    scrollThumb: "rgba(196,168,130,.25)",
-    dotReady: "#27ae60",
-    dotLoading: "#f39c12",
-    errorBg: "rgba(231,76,60,.1)",
-    errorBorder: "rgba(231,76,60,.22)",
-    errorText: "#e74c3c",
-    successBorder: "rgba(39,174,96,.3)",
-    successBg: "rgba(39,174,96,.08)",
-    successText: "#27ae60",
-    wrongBorder: "rgba(231,76,60,.25)",
-    wrongBg: "rgba(231,76,60,.07)",
-    wrongText: "#e74c3c",
-    fonts: `'Playfair Display',serif`,
-    fontBody: `'Lato',sans-serif`,
-    fontMono: `'Lato',monospace`,
-    googleFonts: "Playfair+Display:wght@400;500;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400",
+    id:"parchment", label:"Parchment", preview:["#080810","#c4a882","#8b6a3a"],
+    bg:"#080810", bgCard:"rgba(255,255,255,.038)", bgCardHover:"rgba(255,255,255,.058)",
+    bgInput:"rgba(255,255,255,.05)", bgNav:"rgba(8,8,16,.92)", bgMsg:"rgba(255,255,255,.05)",
+    bgUserMsg:"rgba(196,168,130,.1)", border:"rgba(255,255,255,.09)", borderHover:"rgba(196,168,130,.38)",
+    borderInput:"rgba(255,255,255,.12)", borderFocus:"rgba(196,168,130,.52)",
+    borderUserMsg:"rgba(196,168,130,.28)", borderAssistMsg:"rgba(255,255,255,.07)",
+    text:"#e8dcc8", textHeading:"#f0ead6", textMuted:"#7a7060", textDim:"#5a4a30", textVeryDim:"#3a3020",
+    accent:"#c4a882", accentText:"#080810", accentMuted:"rgba(196,168,130,.14)", accentBorder:"rgba(196,168,130,.52)",
+    logo:"#e8dcc8", logoBox:"linear-gradient(135deg,#c4a882,#8b6a3a)", logoBoxText:"#080810",
+    gridLine:"rgba(196,168,130,.02)", gradientTop:"rgba(120,80,30,.11)",
+    btnPrimary:"linear-gradient(135deg,#c4a882,#8b6a3a)", btnPrimaryText:"#080810",
+    btnGhost:"rgba(255,255,255,.05)", btnGhostText:"#6a5a40",
+    scrollThumb:"rgba(196,168,130,.25)", dotReady:"#27ae60", dotLoading:"#f39c12",
+    errorBg:"rgba(231,76,60,.1)", errorBorder:"rgba(231,76,60,.24)", errorText:"#e74c3c",
+    successBorder:"rgba(39,174,96,.3)", successBg:"rgba(39,174,96,.09)", successText:"#27ae60",
+    wrongBorder:"rgba(231,76,60,.26)", wrongBg:"rgba(231,76,60,.08)", wrongText:"#e74c3c",
+    fonts:`'Playfair Display',serif`, fontBody:`'Lato',sans-serif`, fontMono:`'Lato',monospace`,
   },
   forest: {
-    id: "forest",
-    label: "Forest",
-    preview: ["#0a100d","#86efac","#16a34a"],
-    bg: "#0a100d",
-    bgCard: "rgba(22,40,28,.8)",
-    bgCardHover: "rgba(22,40,28,.95)",
-    bgInput: "rgba(134,239,172,.03)",
-    bgNav: "rgba(10,16,13,.9)",
-    bgMsg: "rgba(22,40,28,.8)",
-    bgUserMsg: "rgba(134,239,172,.07)",
-    border: "rgba(134,239,172,.08)",
-    borderHover: "rgba(134,239,172,.22)",
-    borderInput: "rgba(134,239,172,.1)",
-    borderFocus: "rgba(134,239,172,.35)",
-    borderUserMsg: "rgba(134,239,172,.18)",
-    borderAssistMsg: "rgba(134,239,172,.07)",
-    text: "#bbf7d0",
-    textHeading: "#dcfce7",
-    textMuted: "#4d7c5f",
-    textDim: "#2d5a3f",
-    textVeryDim: "#1a3828",
-    accent: "#86efac",
-    accentText: "#0a100d",
-    accentMuted: "rgba(134,239,172,.08)",
-    accentBorder: "rgba(134,239,172,.25)",
-    logo: "#dcfce7",
-    logoBox: "#86efac",
-    logoBoxText: "#0a100d",
-    gridLine: "rgba(134,239,172,.02)",
-    gradientTop: "rgba(22,163,74,.07)",
-    btnPrimary: "#86efac",
-    btnPrimaryText: "#0a100d",
-    btnGhost: "rgba(134,239,172,.05)",
-    btnGhostText: "#4d7c5f",
-    scrollThumb: "rgba(134,239,172,.2)",
-    dotReady: "#86efac",
-    dotLoading: "#fbbf24",
-    errorBg: "rgba(248,113,113,.07)",
-    errorBorder: "rgba(248,113,113,.18)",
-    errorText: "#fca5a5",
-    successBorder: "rgba(134,239,172,.3)",
-    successBg: "rgba(134,239,172,.08)",
-    successText: "#86efac",
-    wrongBorder: "rgba(248,113,113,.2)",
-    wrongBg: "rgba(248,113,113,.06)",
-    wrongText: "#fca5a5",
-    fonts: `'DM Serif Display',serif`,
-    fontBody: `'Instrument Sans',sans-serif`,
-    fontMono: `'DM Mono',monospace`,
-    googleFonts: "DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600",
+    id:"forest", label:"Forest", preview:["#0a100d","#86efac","#16a34a"],
+    bg:"#0a100d", bgCard:"rgba(22,40,28,.8)", bgCardHover:"rgba(28,50,35,.95)",
+    bgInput:"rgba(134,239,172,.04)", bgNav:"rgba(10,16,13,.92)", bgMsg:"rgba(22,40,28,.8)",
+    bgUserMsg:"rgba(134,239,172,.08)", border:"rgba(134,239,172,.09)", borderHover:"rgba(134,239,172,.25)",
+    borderInput:"rgba(134,239,172,.11)", borderFocus:"rgba(134,239,172,.38)",
+    borderUserMsg:"rgba(134,239,172,.2)", borderAssistMsg:"rgba(134,239,172,.07)",
+    text:"#bbf7d0", textHeading:"#dcfce7", textMuted:"#4d7c5f", textDim:"#2d5a3f", textVeryDim:"#1a3828",
+    accent:"#86efac", accentText:"#0a100d", accentMuted:"rgba(134,239,172,.09)", accentBorder:"rgba(134,239,172,.28)",
+    logo:"#dcfce7", logoBox:"#86efac", logoBoxText:"#0a100d",
+    gridLine:"rgba(134,239,172,.022)", gradientTop:"rgba(22,163,74,.08)",
+    btnPrimary:"#86efac", btnPrimaryText:"#0a100d", btnGhost:"rgba(134,239,172,.06)", btnGhostText:"#4d7c5f",
+    scrollThumb:"rgba(134,239,172,.2)", dotReady:"#86efac", dotLoading:"#fbbf24",
+    errorBg:"rgba(248,113,113,.07)", errorBorder:"rgba(248,113,113,.2)", errorText:"#fca5a5",
+    successBorder:"rgba(134,239,172,.32)", successBg:"rgba(134,239,172,.09)", successText:"#86efac",
+    wrongBorder:"rgba(248,113,113,.22)", wrongBg:"rgba(248,113,113,.07)", wrongText:"#fca5a5",
+    fonts:`'DM Serif Display',serif`, fontBody:`'Instrument Sans',sans-serif`, fontMono:`'DM Mono',monospace`,
   },
   midnight: {
-    id: "midnight",
-    label: "Midnight",
-    preview: ["#05050f","#818cf8","#4f46e5"],
-    bg: "#05050f",
-    bgCard: "rgba(10,10,30,.8)",
-    bgCardHover: "rgba(10,10,30,.95)",
-    bgInput: "rgba(129,140,248,.04)",
-    bgNav: "rgba(5,5,15,.9)",
-    bgMsg: "rgba(10,10,30,.8)",
-    bgUserMsg: "rgba(129,140,248,.08)",
-    border: "rgba(129,140,248,.08)",
-    borderHover: "rgba(129,140,248,.22)",
-    borderInput: "rgba(129,140,248,.1)",
-    borderFocus: "rgba(129,140,248,.4)",
-    borderUserMsg: "rgba(129,140,248,.2)",
-    borderAssistMsg: "rgba(129,140,248,.07)",
-    text: "#c7d2fe",
-    textHeading: "#e0e7ff",
-    textMuted: "#4c5594",
-    textDim: "#2d3478",
-    textVeryDim: "#1a1f55",
-    accent: "#818cf8",
-    accentText: "#05050f",
-    accentMuted: "rgba(129,140,248,.08)",
-    accentBorder: "rgba(129,140,248,.25)",
-    logo: "#e0e7ff",
-    logoBox: "#818cf8",
-    logoBoxText: "#05050f",
-    gridLine: "rgba(129,140,248,.02)",
-    gradientTop: "rgba(79,70,229,.1)",
-    btnPrimary: "#818cf8",
-    btnPrimaryText: "#05050f",
-    btnGhost: "rgba(129,140,248,.05)",
-    btnGhostText: "#4c5594",
-    scrollThumb: "rgba(129,140,248,.2)",
-    dotReady: "#818cf8",
-    dotLoading: "#fbbf24",
-    errorBg: "rgba(248,113,113,.07)",
-    errorBorder: "rgba(248,113,113,.18)",
-    errorText: "#fca5a5",
-    successBorder: "rgba(129,140,248,.3)",
-    successBg: "rgba(129,140,248,.08)",
-    successText: "#818cf8",
-    wrongBorder: "rgba(248,113,113,.2)",
-    wrongBg: "rgba(248,113,113,.06)",
-    wrongText: "#fca5a5",
-    fonts: `'DM Serif Display',serif`,
-    fontBody: `'Instrument Sans',sans-serif`,
-    fontMono: `'DM Mono',monospace`,
-    googleFonts: "DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600",
+    id:"midnight", label:"Midnight", preview:["#05050f","#818cf8","#4f46e5"],
+    bg:"#05050f", bgCard:"rgba(10,10,30,.8)", bgCardHover:"rgba(14,14,40,.95)",
+    bgInput:"rgba(129,140,248,.04)", bgNav:"rgba(5,5,15,.92)", bgMsg:"rgba(10,10,30,.8)",
+    bgUserMsg:"rgba(129,140,248,.09)", border:"rgba(129,140,248,.09)", borderHover:"rgba(129,140,248,.25)",
+    borderInput:"rgba(129,140,248,.11)", borderFocus:"rgba(129,140,248,.42)",
+    borderUserMsg:"rgba(129,140,248,.22)", borderAssistMsg:"rgba(129,140,248,.07)",
+    text:"#c7d2fe", textHeading:"#e0e7ff", textMuted:"#4c5594", textDim:"#2d3478", textVeryDim:"#1a1f55",
+    accent:"#818cf8", accentText:"#05050f", accentMuted:"rgba(129,140,248,.09)", accentBorder:"rgba(129,140,248,.28)",
+    logo:"#e0e7ff", logoBox:"#818cf8", logoBoxText:"#05050f",
+    gridLine:"rgba(129,140,248,.022)", gradientTop:"rgba(79,70,229,.11)",
+    btnPrimary:"#818cf8", btnPrimaryText:"#05050f", btnGhost:"rgba(129,140,248,.06)", btnGhostText:"#4c5594",
+    scrollThumb:"rgba(129,140,248,.2)", dotReady:"#818cf8", dotLoading:"#fbbf24",
+    errorBg:"rgba(248,113,113,.07)", errorBorder:"rgba(248,113,113,.2)", errorText:"#fca5a5",
+    successBorder:"rgba(129,140,248,.32)", successBg:"rgba(129,140,248,.09)", successText:"#818cf8",
+    wrongBorder:"rgba(248,113,113,.22)", wrongBg:"rgba(248,113,113,.07)", wrongText:"#fca5a5",
+    fonts:`'DM Serif Display',serif`, fontBody:`'Instrument Sans',sans-serif`, fontMono:`'DM Mono',monospace`,
   },
   rose: {
-    id: "rose",
-    label: "Rose",
-    preview: ["#0f0608","#fda4af","#e11d48"],
-    bg: "#0f0608",
-    bgCard: "rgba(30,10,15,.8)",
-    bgCardHover: "rgba(30,10,15,.95)",
-    bgInput: "rgba(253,164,175,.03)",
-    bgNav: "rgba(15,6,8,.9)",
-    bgMsg: "rgba(30,10,15,.8)",
-    bgUserMsg: "rgba(253,164,175,.07)",
-    border: "rgba(253,164,175,.08)",
-    borderHover: "rgba(253,164,175,.22)",
-    borderInput: "rgba(253,164,175,.1)",
-    borderFocus: "rgba(253,164,175,.35)",
-    borderUserMsg: "rgba(253,164,175,.18)",
-    borderAssistMsg: "rgba(253,164,175,.07)",
-    text: "#fce7f3",
-    textHeading: "#fdf2f8",
-    textMuted: "#7c3f55",
-    textDim: "#4c2030",
-    textVeryDim: "#2d1020",
-    accent: "#fda4af",
-    accentText: "#0f0608",
-    accentMuted: "rgba(253,164,175,.08)",
-    accentBorder: "rgba(253,164,175,.25)",
-    logo: "#fdf2f8",
-    logoBox: "#fda4af",
-    logoBoxText: "#0f0608",
-    gridLine: "rgba(253,164,175,.02)",
-    gradientTop: "rgba(225,29,72,.08)",
-    btnPrimary: "#fda4af",
-    btnPrimaryText: "#0f0608",
-    btnGhost: "rgba(253,164,175,.05)",
-    btnGhostText: "#7c3f55",
-    scrollThumb: "rgba(253,164,175,.2)",
-    dotReady: "#fda4af",
-    dotLoading: "#fbbf24",
-    errorBg: "rgba(248,113,113,.07)",
-    errorBorder: "rgba(248,113,113,.18)",
-    errorText: "#fca5a5",
-    successBorder: "rgba(253,164,175,.3)",
-    successBg: "rgba(253,164,175,.08)",
-    successText: "#fda4af",
-    wrongBorder: "rgba(248,113,113,.2)",
-    wrongBg: "rgba(248,113,113,.06)",
-    wrongText: "#fca5a5",
-    fonts: `'DM Serif Display',serif`,
-    fontBody: `'Instrument Sans',sans-serif`,
-    fontMono: `'DM Mono',monospace`,
-    googleFonts: "DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600",
+    id:"rose", label:"Rose", preview:["#0f0608","#fda4af","#e11d48"],
+    bg:"#0f0608", bgCard:"rgba(30,10,15,.8)", bgCardHover:"rgba(38,14,20,.95)",
+    bgInput:"rgba(253,164,175,.04)", bgNav:"rgba(15,6,8,.92)", bgMsg:"rgba(30,10,15,.8)",
+    bgUserMsg:"rgba(253,164,175,.08)", border:"rgba(253,164,175,.09)", borderHover:"rgba(253,164,175,.25)",
+    borderInput:"rgba(253,164,175,.11)", borderFocus:"rgba(253,164,175,.38)",
+    borderUserMsg:"rgba(253,164,175,.2)", borderAssistMsg:"rgba(253,164,175,.07)",
+    text:"#fce7f3", textHeading:"#fdf2f8", textMuted:"#7c3f55", textDim:"#4c2030", textVeryDim:"#2d1020",
+    accent:"#fda4af", accentText:"#0f0608", accentMuted:"rgba(253,164,175,.09)", accentBorder:"rgba(253,164,175,.28)",
+    logo:"#fdf2f8", logoBox:"#fda4af", logoBoxText:"#0f0608",
+    gridLine:"rgba(253,164,175,.022)", gradientTop:"rgba(225,29,72,.09)",
+    btnPrimary:"#fda4af", btnPrimaryText:"#0f0608", btnGhost:"rgba(253,164,175,.06)", btnGhostText:"#7c3f55",
+    scrollThumb:"rgba(253,164,175,.2)", dotReady:"#fda4af", dotLoading:"#fbbf24",
+    errorBg:"rgba(248,113,113,.07)", errorBorder:"rgba(248,113,113,.2)", errorText:"#fca5a5",
+    successBorder:"rgba(253,164,175,.32)", successBg:"rgba(253,164,175,.09)", successText:"#fda4af",
+    wrongBorder:"rgba(248,113,113,.22)", wrongBg:"rgba(248,113,113,.07)", wrongText:"#fca5a5",
+    fonts:`'DM Serif Display',serif`, fontBody:`'Instrument Sans',sans-serif`, fontMono:`'DM Mono',monospace`,
   },
 };
 
 // ── STORAGE ────────────────────────────────────────────────────
-const sGet  = async (k) => { try { const r=await window.storage.get(k); return r?JSON.parse(r.value):null; } catch { return null; } };
+const sGet  = async (k)   => { try { const r=await window.storage.get(k); return r?JSON.parse(r.value):null; } catch { return null; } };
 const sSet  = async (k,v) => { try { await window.storage.set(k,JSON.stringify(v)); } catch {} };
 const sList = async (p)   => { try { const r=await window.storage.list(p); return r?.keys||[]; } catch { return []; } };
 const uid   = () => Math.random().toString(36).slice(2,10);
 
-// ── CLAUDE API ─────────────────────────────────────────────────
+// ── CLAUDE API — correct artifact pattern ──────────────────────
 async function callClaude(messages, system) {
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1000, system, messages }),
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1024,
+        system,
+        messages,
+      }),
     });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error("Claude API error:", res.status, err);
+      return "I'm having trouble connecting right now. Please try again in a moment.";
+    }
     const data = await res.json();
-    return data.content?.[0]?.text || "I'm unable to respond right now. Please try again.";
+    return data.content?.[0]?.text || "No response received. Please try again.";
   } catch (e) {
-    console.error("callClaude error", e);
-    return "Connection error — please try again.";
+    console.error("callClaude error:", e);
+    return "Connection error — please check your network and try again.";
   }
 }
 
-// ── STATIC QUESTION BANK (instant, no API needed for exam) ────
+// ── QUESTION BANK ──────────────────────────────────────────────
 const QUESTIONS = {
   es:[
     {q:"What does 'Buenos días' mean?",o:["Good night","Good morning","Goodbye","Thank you"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
@@ -433,7 +274,7 @@ const QUESTIONS = {
     {q:"Honorific subject suffix?",o:["-아/어요","-시-","-겠-","-았/었-"],a:1,d:4,topic:"Honorifics",cefr:"B2"},
     {q:"'Although hard, I study'?",o:["어려워서 공부해요","어려우면 공부해요","어렵지만 공부해요","어렵고 공부해요"],a:2,d:4,topic:"Conjunctions",cefr:"B2"},
     {q:"'-ㄹ/을수록' expresses?",o:["Contrast","The more...the more","Condition","Concession"],a:1,d:5,topic:"Grammar",cefr:"C1"},
-    {q:"'간접화법' (indirect speech) past tense ending?",o:["-다고 했어요","-라고 했어요","-냐고 했어요","-자고 했어요"],a:0,d:5,topic:"Reported Speech",cefr:"C1"},
+    {q:"'간접화법' past tense ending?",o:["-다고 했어요","-라고 했어요","-냐고 했어요","-자고 했어요"],a:0,d:5,topic:"Reported Speech",cefr:"C1"},
   ],
   ru:[
     {q:"'Привет' means?",o:["Goodbye","Hi/Hello","Thank you","Please"],a:1,d:1,topic:"Vocabulary",cefr:"A1"},
@@ -455,8 +296,8 @@ const QUESTIONS = {
     {q:"Hindi noun genders?",o:["3 genders","No gender","Masculine or feminine only","Only pronouns have gender"],a:2,d:3,topic:"Grammar",cefr:"B1"},
     {q:"Word order in Hindi?",o:["S+V+O","V+S+O","S+O+V","O+S+V"],a:2,d:3,topic:"Grammar",cefr:"B1"},
     {q:"'ने' (ne) indicates?",o:["Future","Ergative past transitive marker","Plural","Negation"],a:1,d:4,topic:"Grammar",cefr:"B2"},
-    {q:"'She would have come if she had known'?",o:["अगर उसे पता होता तो वो आती","वो आई क्योंकि पता था","उसे पता है वो आएगी","वो आएगी अगर पता होगा"],a:0,d:4,topic:"Conditional",cefr:"B2"},
-    {q:"Subjunctive ('संभाव्य') mood used when?",o:["Certainty","Wish/doubt/possibility","Commands only","Past events"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"Conditional sentence?",o:["अगर उसे पता होता तो वो आती","वो आई क्योंकि पता था","उसे पता है वो आएगी","वो आएगी अगर पता होगा"],a:0,d:4,topic:"Conditional",cefr:"B2"},
+    {q:"Subjunctive mood used when?",o:["Certainty","Wish/doubt/possibility","Commands only","Past events"],a:1,d:5,topic:"Grammar",cefr:"C1"},
     {q:"'यद्यपि...तथापि' means?",o:["If...then","Although...nevertheless","Either...or","Neither...nor"],a:1,d:5,topic:"Conjunctions",cefr:"C1"},
   ],
   nl:[
@@ -479,9 +320,9 @@ const QUESTIONS = {
     {q:"Suffix for 'at/in a place'?",o:["-den/-dan","-e/-a","-de/-da","-in/-ın"],a:2,d:3,topic:"Cases",cefr:"B1"},
     {q:"Vowel harmony means?",o:["Matching pitch","Suffixes match root vowels","Equal syllables","Consonants adapt"],a:1,d:3,topic:"Phonology",cefr:"B1"},
     {q:"Conditional suffix?",o:["-iyor","-di","-se/-sa","-ecek"],a:2,d:4,topic:"Grammar",cefr:"B2"},
-    {q:"'I couldn't come because I was busy'?",o:["Meşgul olduğum için gelemedim","Gelmek istedim ama meşguldüm","Gelmeyeceğim çünkü meşgulüm","Meşgul değilim geldim"],a:0,d:4,topic:"Complex Sentences",cefr:"B2"},
+    {q:"Complex sentence: 'busy so couldn't come'?",o:["Meşgul olduğum için gelemedim","Gelmek istedim ama meşguldüm","Gelmeyeceğim çünkü meşgulüm","Meşgul değilim geldim"],a:0,d:4,topic:"Complex Sentences",cefr:"B2"},
     {q:"'-mış' suffix indicates?",o:["Direct past experience","Reported/hearsay past","Future intention","Condition"],a:1,d:5,topic:"Evidentiality",cefr:"C1"},
-    {q:"'Gerundium' ('-dığı için') expresses?",o:["Purpose","Causal subordination","Concession","Manner"],a:1,d:5,topic:"Grammar",cefr:"C1"},
+    {q:"'-dığı için' expresses?",o:["Purpose","Causal subordination","Concession","Manner"],a:1,d:5,topic:"Grammar",cefr:"C1"},
   ],
   pl:[
     {q:"'Cześć' means?",o:["Goodbye","Thank you","Hi/Hello","Please"],a:2,d:1,topic:"Vocabulary",cefr:"A1"},
@@ -521,40 +362,51 @@ const QUESTIONS = {
   ],
 };
 
-// ── Get shuffled question pool for a language, sorted by difficulty ──
 function getExamPool(langCode) {
   const qs = QUESTIONS[langCode] || QUESTIONS["es"];
   return [...qs].sort((a, b) => a.d - b.d);
 }
 
-// ── BASE CSS (animations + structural only, no colors) ─────────
+// ── BASE CSS ───────────────────────────────────────────────────
 const BASE_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;700&family=Lato:wght@300;400;700&display=swap');
-  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
   @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+  @keyframes spin{to{transform:rotate(360deg)}}
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  .fade{animation:fadeUp .45s cubic-bezier(.16,1,.3,1) both}
-  .fade2{animation:fadeUp .45s cubic-bezier(.16,1,.3,1) .08s both}
-  .fade3{animation:fadeUp .45s cubic-bezier(.16,1,.3,1) .16s both}
-  .dot{animation:pulse 1.5s ease-in-out infinite}
+  html,body{height:100%;-webkit-text-size-adjust:100%}
+  .fade{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) both}
+  .fade2{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) .07s both}
+  .fade3{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) .14s both}
+  .dot{animation:pulse 1.4s ease-in-out infinite}
   .dot:nth-child(2){animation-delay:.2s}
   .dot:nth-child(3){animation-delay:.4s}
-  .lang-card{transition:all .2s ease}
-  .lang-card:hover{transform:translateY(-2px)}
-  .opt-btn{transition:all .15s ease}
+  .lang-card{transition:transform .18s ease,background .18s,border-color .18s}
+  .opt-btn{transition:all .13s ease}
   .opt-btn:disabled{cursor:default}
-  .primary-btn{transition:all .2s ease}
-  .primary-btn:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}
-  .primary-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-  .ghost-btn{transition:all .2s ease}
-  .level-card{transition:transform .15s ease}
-  .level-card:hover{transform:translateX(4px)}
-  .history-item{transition:all .2s}
+  .primary-btn{transition:filter .18s ease,transform .18s ease,opacity .18s}
+  .primary-btn:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
+  .primary-btn:active:not(:disabled){transform:translateY(0)}
+  .primary-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+  .ghost-btn{transition:all .18s ease}
+  .level-card{transition:transform .13s ease,background .13s,border-color .13s}
+  .history-item{transition:all .18s}
   .input-field:focus{outline:none}
+  textarea,input{-webkit-appearance:none;appearance:none;border-radius:10px}
+  @media(hover:hover){
+    .lang-card:hover{transform:translateY(-2px)}
+    .level-card:hover{transform:translateX(3px)}
+  }
+  @media(max-width:600px){
+    .hide-mobile{display:none!important}
+    .mobile-full{width:100%!important}
+    .mobile-col{flex-direction:column!important}
+    .mobile-p{padding:16px!important}
+    .mobile-gap{gap:8px!important}
+  }
 `;
 
-// ── AUTH FIELD — defined OUTSIDE parent to prevent remount ─────
+// ── AUTH FIELD ─────────────────────────────────────────────────
 function AuthField({ label, value, onChange, placeholder, type = "text", onEnter, t }) {
   const [focused, setFocused] = useState(false);
   return (
@@ -573,13 +425,10 @@ function AuthField({ label, value, onChange, placeholder, type = "text", onEnter
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         style={{
-          width:"100%", boxSizing:"border-box",
-          background:t.bgInput,
+          width:"100%", background:t.bgInput,
           border:`1px solid ${focused ? t.borderFocus : t.borderInput}`,
-          borderRadius:10, padding:"12px 16px", color:t.textHeading,
-          fontSize:14, fontFamily:t.fontBody,
-          transition:"border-color .2s",
-          outline:"none",
+          borderRadius:10, padding:"13px 16px", color:t.textHeading,
+          fontSize:15, fontFamily:t.fontBody, transition:"border-color .2s", outline:"none",
         }}
       />
     </div>
@@ -588,11 +437,11 @@ function AuthField({ label, value, onChange, placeholder, type = "text", onEnter
 
 // ── AUTH SCREEN ────────────────────────────────────────────────
 function AuthScreen({ onLogin, onBack, t }) {
-  const [mode,    setMode]    = useState("signin");
-  const [name,    setName]    = useState("");
-  const [email,   setEmail]   = useState("");
-  const [pass,    setPass]    = useState("");
-  const [err,     setErr]     = useState("");
+  const [mode, setMode]       = useState("signin");
+  const [name, setName]       = useState("");
+  const [email, setEmail]     = useState("");
+  const [pass, setPass]       = useState("");
+  const [err, setErr]         = useState("");
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
@@ -608,8 +457,8 @@ function AuthScreen({ onLogin, onBack, t }) {
         await sSet(key, u); onLogin(u);
       } else {
         const u = await sGet(key);
-        if (!u)          { setErr("No account found with this email."); setLoading(false); return; }
-        if (u.pass!==pass) { setErr("Incorrect password.");             setLoading(false); return; }
+        if (!u)           { setErr("No account found with this email."); setLoading(false); return; }
+        if (u.pass!==pass){ setErr("Incorrect password.");               setLoading(false); return; }
         onLogin(u);
       }
     } catch { setErr("Something went wrong. Please try again."); }
@@ -617,46 +466,39 @@ function AuthScreen({ onLogin, onBack, t }) {
   };
 
   return (
-    <div className="fade" style={{ maxWidth:400, margin:"0 auto", padding:"48px 24px" }}>
+    <div className="fade" style={{ maxWidth:400, margin:"0 auto", padding:"40px 20px" }}>
       <button onClick={onBack} style={{ background:"none", border:`1px solid ${t.border}`, borderRadius:8,
-        padding:"7px 14px", color:t.textMuted, fontSize:12, fontFamily:t.fontMono,
-        letterSpacing:2, textTransform:"uppercase", marginBottom:40, cursor:"pointer" }}>
+        padding:"8px 16px", color:t.textMuted, fontSize:12, fontFamily:t.fontMono,
+        letterSpacing:2, textTransform:"uppercase", marginBottom:36, cursor:"pointer" }}>
         ← Back
       </button>
       <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase",
-        marginBottom:16, fontFamily:t.fontMono }}>
+        marginBottom:12, fontFamily:t.fontMono }}>
         {mode === "signin" ? "Return to session" : "Create account"}
       </div>
-      <h2 style={{ fontSize:36, fontFamily:t.fonts, fontWeight:400, margin:"0 0 10px", color:t.textHeading }}>
+      <h2 style={{ fontSize:32, fontFamily:t.fonts, fontWeight:400, margin:"0 0 10px", color:t.textHeading }}>
         {mode === "signin" ? "Welcome back" : "Join LinguaAI"}
       </h2>
-      <p style={{ color:t.textMuted, fontSize:14, marginBottom:32, lineHeight:1.8, fontWeight:300, fontFamily:t.fontBody }}>
+      <p style={{ color:t.textMuted, fontSize:14, marginBottom:28, lineHeight:1.8, fontWeight:300, fontFamily:t.fontBody }}>
         {mode === "signin" ? "Access your saved sessions and progress." : "Free access. No subscription required."}
       </p>
-
       <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-        {mode === "signup" && (
-          <AuthField label="Name" value={name} onChange={setName} placeholder="Your name" t={t}/>
-        )}
-        <AuthField label="Email" value={email} onChange={setEmail} placeholder="you@university.edu" type="email" t={t}/>
+        {mode === "signup" && <AuthField label="Name" value={name} onChange={setName} placeholder="Your name" t={t}/>}
+        <AuthField label="Email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" t={t}/>
         <AuthField label="Password" value={pass} onChange={setPass} placeholder="••••••••" type="password" onEnter={submit} t={t}/>
-
         {err && (
           <div style={{ fontSize:12, color:t.errorText, padding:"10px 14px", background:t.errorBg,
             borderRadius:8, border:`1px solid ${t.errorBorder}`, fontFamily:t.fontMono }}>
             {err}
           </div>
         )}
-
         <button className="primary-btn" onClick={submit} disabled={loading}
-          style={{ background:t.btnPrimary, border:"none", borderRadius:10, padding:"13px",
-            color:t.btnPrimaryText, fontSize:14, fontWeight:600, fontFamily:t.fontBody,
-            width:"100%", opacity:loading?.5:1, cursor:loading?"not-allowed":"pointer" }}>
+          style={{ background:t.btnPrimary, border:"none", borderRadius:10, padding:"14px",
+            color:t.btnPrimaryText, fontSize:15, fontWeight:600, fontFamily:t.fontBody, width:"100%", cursor:"pointer" }}>
           {loading ? "…" : mode === "signin" ? "Sign In" : "Create Account"}
         </button>
       </div>
-
-      <p style={{ textAlign:"center", marginTop:24, fontSize:13, color:t.textMuted, fontFamily:t.fontBody }}>
+      <p style={{ textAlign:"center", marginTop:20, fontSize:13, color:t.textMuted, fontFamily:t.fontBody }}>
         {mode === "signin" ? "No account? " : "Already registered? "}
         <button onClick={() => { setMode(m => m==="signin"?"signup":"signin"); setErr(""); }}
           style={{ background:"none", border:"none", color:t.accent, cursor:"pointer", fontFamily:t.fontBody, fontSize:13 }}>
@@ -670,8 +512,16 @@ function AuthScreen({ onLogin, onBack, t }) {
 // ── THEME PICKER ───────────────────────────────────────────────
 function ThemePicker({ current, onChange, t }) {
   const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!open) return;
+    const handler = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
   return (
-    <div style={{ position:"relative" }}>
+    <div ref={ref} style={{ position:"relative" }}>
       <button onClick={() => setOpen(o => !o)}
         style={{ background:t.btnGhost, border:`1px solid ${t.border}`, borderRadius:8,
           padding:"6px 12px", cursor:"pointer", display:"flex", alignItems:"center", gap:8 }}>
@@ -680,25 +530,23 @@ function ThemePicker({ current, onChange, t }) {
             <div key={i} style={{ width:8, height:8, borderRadius:"50%", background:c }}/>
           ))}
         </div>
-        <span style={{ fontSize:11, color:t.textMuted, fontFamily:t.fontMono, letterSpacing:1 }}>
+        <span className="hide-mobile" style={{ fontSize:11, color:t.textMuted, fontFamily:t.fontMono, letterSpacing:1 }}>
           {THEMES[current].label}
         </span>
       </button>
       {open && (
         <div style={{ position:"absolute", top:"calc(100% + 8px)", right:0, background:t.bgCard,
-          border:`1px solid ${t.border}`, borderRadius:12, padding:8, zIndex:200,
+          border:`1px solid ${t.border}`, borderRadius:12, padding:8, zIndex:300,
           display:"flex", flexDirection:"column", gap:4, minWidth:150,
-          boxShadow:"0 20px 60px rgba(0,0,0,.5)" }}>
+          boxShadow:"0 20px 60px rgba(0,0,0,.6)" }}>
           {Object.values(THEMES).map(th => (
             <button key={th.id} onClick={() => { onChange(th.id); setOpen(false); }}
               style={{ background: th.id===current ? t.accentMuted : "none",
                 border:`1px solid ${th.id===current ? t.accentBorder : "transparent"}`,
-                borderRadius:8, padding:"8px 12px", cursor:"pointer",
+                borderRadius:8, padding:"9px 12px", cursor:"pointer",
                 display:"flex", alignItems:"center", gap:10, width:"100%" }}>
               <div style={{ display:"flex", gap:4 }}>
-                {th.preview.map((c,i) => (
-                  <div key={i} style={{ width:9, height:9, borderRadius:"50%", background:c }}/>
-                ))}
+                {th.preview.map((c,i) => <div key={i} style={{ width:9, height:9, borderRadius:"50%", background:c }}/>)}
               </div>
               <span style={{ fontSize:12, color:t.text, fontFamily:t.fontBody }}>{th.label}</span>
               {th.id===current && <span style={{ marginLeft:"auto", fontSize:10, color:t.accent }}>✓</span>}
@@ -727,9 +575,8 @@ export default function LinguaAI() {
   const [history, setHistory] = useState([]);
   const [search,  setSearch]  = useState("");
 
-  // Exam state — uses static pool, no API needed
   const [examPool,  setExamPool]  = useState([]);
-  const examPoolRef = useRef([]);   // ref so answer() closure always sees latest pool
+  const examPoolRef = useRef([]);
   const [examIdx,   setExamIdx]   = useState(0);
   const [examScore, setExamScore] = useState(0);
   const [showExpl,  setShowExpl]  = useState(false);
@@ -738,20 +585,16 @@ export default function LinguaAI() {
   const chatEnd  = useRef(null);
   const inputRef = useRef(null);
 
-  // ── Focus: restore after loading ends ─────────────────────────
+  // Focus input after loading ends on desktop only
   useEffect(() => {
     if (!loading && screen === "chat") {
-      const id = setTimeout(() => inputRef.current?.focus(), 50);
-      return () => clearTimeout(id);
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        const id = setTimeout(() => inputRef.current?.focus(), 80);
+        return () => clearTimeout(id);
+      }
     }
   }, [loading, screen]);
-
-  useEffect(() => {
-    if (screen === "chat") {
-      const id = setTimeout(() => inputRef.current?.focus(), 120);
-      return () => clearTimeout(id);
-    }
-  }, [screen]);
 
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior:"smooth" }); }, [msgs]);
 
@@ -763,8 +606,7 @@ export default function LinguaAI() {
   const startExam = () => {
     const pool = getExamPool(lang.code);
     examPoolRef.current = pool;
-    setExamPool(pool);
-    setExamIdx(0); setExamScore(0);
+    setExamPool(pool); setExamIdx(0); setExamScore(0);
     setShowExpl(false); setChosenAns(null);
     setScreen("exam");
   };
@@ -772,10 +614,9 @@ export default function LinguaAI() {
   const answer = (idx) => {
     const pool = examPoolRef.current;
     if (showExpl || !pool[examIdx]) return;
-    const q       = pool[examIdx];
+    const q = pool[examIdx];
     const correct = q.a === idx;
-    setChosenAns(idx);
-    setShowExpl(true);
+    setChosenAns(idx); setShowExpl(true);
     setExamScore(prev => {
       const newScore = correct ? prev + 1 : prev;
       const newIdx   = examIdx + 1;
@@ -786,49 +627,51 @@ export default function LinguaAI() {
           setScreen("results");
         }, 1400);
       } else {
-        setTimeout(() => {
-          setShowExpl(false);
-          setChosenAns(null);
-          setExamIdx(newIdx);
-        }, 1400);
+        setTimeout(() => { setShowExpl(false); setChosenAns(null); setExamIdx(newIdx); }, 1400);
       }
       return newScore;
     });
   };
 
-  const pickLevel = (li) => {
-    setLevel({ score:null, li, ...LEVELS[li] });
-    setScreen("results");
-  };
+  const pickLevel = (li) => { setLevel({ score:null, li, ...LEVELS[li] }); setScreen("results"); };
 
-  // ── Chat ──────────────────────────────────────────────────────
+  // ── Build system prompt — strong language enforcement ─────────
   const buildSys = useCallback(() => {
     const gl = goals.map(g => GOALS.find(x => x.id===g)?.label).filter(Boolean).join(", ") || "General proficiency";
     const scoreNote = (level?.score !== null && level?.score !== undefined)
-      ? `placement exam score ${level?.score}/10`
-      : "self-assessed";
+      ? `placement exam score ${level?.score}/10` : "self-assessed";
     const li = level?.li ?? 0;
     const depthGuide = li <= 1
-      ? "Keep everything simple and friendly. Celebrate every win. Introduce words through easy real-life scenarios. Never overwhelm them."
+      ? "Keep everything simple and encouraging. Use short sentences. Introduce 1-2 new words per message max. Celebrate every effort. Translate every target-language phrase you use."
       : li <= 3
-      ? "Balance encouragement with gentle challenge. Teach grammar through conversation, not dry rules. Tie examples to their goals."
-      : "Engage as near-equals. Explore nuance, idioms, cultural register, and sophisticated expression. Push for precision.";
-    return `You are a warm, expert ${lang?.name} language tutor. You love languages and genuinely care about your students.
+      ? "Balance warmth with gentle challenge. Teach grammar through natural conversation. Mix target language and English. Correct errors kindly by weaving the correct form into your response."
+      : "Engage at near-equal level. Use mostly the target language with English only for key explanations. Explore nuance, idioms, register, and sophisticated expression.";
 
-Student: CEFR ${level?.cefr} — ${level?.name} (${scoreNote}) | Goals: ${gl} | Learning: ${lang?.name}
+    const scriptNote = ["ja","zh","ar","ko","hi","ru","el"].includes(lang?.code)
+      ? `IMPORTANT: Always write ${lang?.name} in its native script (${lang?.code === "ja" ? "hiragana/katakana/kanji" : lang?.code === "zh" ? "simplified Chinese characters" : lang?.code === "ar" ? "Arabic script" : lang?.code === "ko" ? "Hangul" : lang?.code === "hi" ? "Devanagari" : lang?.code === "ru" ? "Cyrillic" : "Greek script"}). Always provide transliteration (romanisation) alongside the native script for learners at A1-B1 levels.`
+      : "";
 
-How to teach:
-- Write like a real person having a conversation, not a textbook. No bullet points or headers — just flowing, natural prose.
+    return `You are a warm, expert ${lang?.name} language tutor. You care deeply about your students and make learning genuinely enjoyable.
+
+Student profile: CEFR ${level?.cefr} — ${level?.name} (${scoreNote}) | Goals: ${gl} | Target language: ${lang?.name}
+
+${scriptNote}
+
+Teaching approach:
+- Write like a real person in conversation, not a textbook. No bullet-point lists or markdown headers — flowing, natural paragraphs only.
 - ${depthGuide}
-- Correct mistakes gently by using the correct form naturally in your reply, then briefly noting why. Never make them feel bad.
-- Tie every lesson moment to their goals: ${gl}. Make it feel immediately useful.
-- Use ${lang?.name} examples throughout, always with clear English context so they understand.
-- End every single reply with ONE question or a small practical exercise to keep the conversation going.
-- Keep replies to 3–4 paragraphs max — warm, focused, and energising.
+- Use ${lang?.name} examples throughout every message. Even at beginner level, always include some target-language phrases with English translation right after in parentheses.
+- Connect every lesson moment to their goals: ${gl}. Make it feel immediately practical and relevant.
+- Correct mistakes gently: weave the correct form naturally into your reply, then briefly note why — never make them feel bad.
+- End EVERY reply with exactly one engaging question or a small hands-on exercise to keep the conversation moving forward.
+- Keep replies to 3–4 paragraphs — warm, focused, energising. Never overwhelming.
 
-First message: Greet them warmly. Naturally acknowledge their level and goals (not like reading a form). Then jump straight into something genuinely useful and interesting for lesson 1. Make them excited to learn.`;
+Language use rule: You MUST include ${lang?.name} language in every single reply. Even for meta-questions about learning, include at least one example phrase in ${lang?.name}.
+
+First message: Greet them warmly in ${lang?.name} first (with translation), naturally acknowledge their level and goals, then jump straight into something genuinely useful for lesson 1. Make them excited about learning ${lang?.name}.`;
   }, [lang, level, goals]);
 
+  // ── Chat ──────────────────────────────────────────────────────
   const startChat = async () => {
     if (!user) { setScreen("auth"); return; }
     setScreen("chat"); setMsgs([]); setLoading(true);
@@ -844,8 +687,9 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
   };
 
   const send = async () => {
-    if (!input.trim() || loading) return;
-    const txt  = input.trim(); setInput("");
+    const txt = input.trim();
+    if (!txt || loading) return;
+    setInput("");
     const next = [...msgs, { role:"user", content:txt }];
     setMsgs(next); setLoading(true);
     const reply = await callClaude(next, buildSys());
@@ -855,6 +699,12 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
       const ex = await sGet(`chat:${user.id}:${chatId}`);
       if (ex) await sSet(`chat:${user.id}:${chatId}`, { ...ex, messages:final, updatedAt:Date.now() });
     }
+  };
+
+  const handleSend = () => send();
+  const handleInputChange = (e) => setInput(e.target.value);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
   };
 
   const loadHistory = async () => {
@@ -877,14 +727,10 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
     l.region.toLowerCase().includes(search.toLowerCase())
   );
 
-  // ── Shared style helpers ───────────────────────────────────────
-  const card = {
-    background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:16,
-  };
-
+  // ── Shared UI components ───────────────────────────────────────
   const PBtn = ({ onClick, children, style={}, disabled=false }) => (
     <button className="primary-btn" onClick={onClick} disabled={disabled}
-      style={{ background:t.btnPrimary, border:"none", borderRadius:10, padding:"12px 28px",
+      style={{ background:t.btnPrimary, border:"none", borderRadius:10, padding:"13px 26px",
         color:t.btnPrimaryText, fontSize:14, fontWeight:600, fontFamily:t.fontBody,
         letterSpacing:.3, cursor:"pointer", ...style }}>
       {children}
@@ -894,8 +740,8 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
   const GBtn = ({ onClick, children, style={} }) => (
     <button className="ghost-btn" onClick={onClick}
       style={{ background:t.btnGhost, border:`1px solid ${t.border}`, borderRadius:10,
-        padding:"12px 22px", color:t.btnGhostText, fontSize:13, fontFamily:t.fontBody,
-        cursor:"pointer", transition:"all .2s", ...style }}>
+        padding:"13px 20px", color:t.btnGhostText, fontSize:13, fontFamily:t.fontBody,
+        cursor:"pointer", ...style }}>
       {children}
     </button>
   );
@@ -903,8 +749,9 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
   const Bk = ({ onClick }) => (
     <button onClick={onClick}
       style={{ background:"none", border:`1px solid ${t.border}`, borderRadius:8,
-        padding:"7px 14px", color:t.textMuted, fontSize:12, fontFamily:t.fontMono,
-        letterSpacing:2, textTransform:"uppercase", marginBottom:40, cursor:"pointer" }}>
+        padding:"8px 16px", color:t.textMuted, fontSize:12, fontFamily:t.fontMono,
+        letterSpacing:2, textTransform:"uppercase", marginBottom:36, cursor:"pointer",
+        display:"inline-flex", alignItems:"center", gap:8 }}>
       ← Back
     </button>
   );
@@ -917,24 +764,26 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
     </span>
   );
 
-  // ── Inline chat input — no component, just JSX ─────────────────
-  const handleInputChange = (e) => setInput(e.target.value);
-  const handleKeyDown     = (e) => { if (e.key==="Enter" && !e.shiftKey) { e.preventDefault(); send(); } };
+  const card = { background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:16 };
 
   // ── RENDER ─────────────────────────────────────────────────────
   return (
-    <div style={{ minHeight:"100vh", background:t.bg, fontFamily:t.fontBody, color:t.text, position:"relative" }}>
+    <div style={{ minHeight:"100vh", background:t.bg, fontFamily:t.fontBody, color:t.text, position:"relative", overflowX:"hidden" }}>
       <style>{BASE_CSS + `
         ::-webkit-scrollbar{width:3px}
         ::-webkit-scrollbar-track{background:transparent}
         ::-webkit-scrollbar-thumb{background:${t.scrollThumb};border-radius:2px}
         .lang-card:hover{background:${t.bgCardHover}!important;border-color:${t.borderHover}!important}
-        .ghost-btn:hover{background:${t.accentMuted}!important;border-color:${t.borderHover}!important}
+        .ghost-btn:hover{background:${t.accentMuted}!important;border-color:${t.borderHover}!important;color:${t.text}!important}
         .opt-btn:hover:not(:disabled){background:${t.accentMuted}!important;border-color:${t.borderHover}!important}
         .history-item:hover{background:${t.bgCardHover}!important;border-color:${t.borderHover}!important}
+        .level-card:hover{background:${t.bgCardHover}!important;border-color:${t.borderHover}!important}
+        .goal-card{transition:all .18s}
+        .goal-card:hover{border-color:${t.borderHover}!important}
+        input::placeholder,textarea::placeholder{color:${t.textDim}}
       `}</style>
 
-      {/* Grid overlay */}
+      {/* Background grid + glow */}
       <div style={{ position:"fixed", inset:0, zIndex:0, pointerEvents:"none",
         backgroundImage:`linear-gradient(${t.gridLine} 1px,transparent 1px),linear-gradient(90deg,${t.gridLine} 1px,transparent 1px)`,
         backgroundSize:"48px 48px" }}/>
@@ -942,50 +791,50 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
         background:`radial-gradient(ellipse 80% 50% at 50% -5%,${t.gradientTop} 0%,transparent 70%)` }}/>
 
       {/* ── NAV ── */}
-      <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:100, padding:"0 28px",
-        height:54, display:"flex", alignItems:"center", justifyContent:"space-between",
+      <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:100,
+        padding:"0 20px", height:54, display:"flex", alignItems:"center", justifyContent:"space-between",
         background:t.bgNav, backdropFilter:"blur(20px)", borderBottom:`1px solid ${t.border}` }}>
-        <button onClick={() => setScreen("home")} style={{ background:"none", border:"none", cursor:"pointer", padding:0, display:"flex", alignItems:"center", gap:10 }}>
+
+        <button onClick={() => setScreen("home")} style={{ background:"none", border:"none", cursor:"pointer",
+          padding:0, display:"flex", alignItems:"center", gap:10, flexShrink:0 }}>
           <div style={{ width:28, height:28, borderRadius:8, background:t.logoBox,
-            display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, color:t.logoBoxText, fontFamily:t.fontMono }}>
+            display:"flex", alignItems:"center", justifyContent:"center",
+            fontSize:13, color:t.logoBoxText, fontFamily:t.fontMono, flexShrink:0 }}>
             λ
           </div>
           <span style={{ fontSize:16, fontFamily:t.fonts, color:t.logo, letterSpacing:-.3 }}>LinguaAI</span>
         </button>
 
-        <div style={{ display:"flex", alignItems:"center", gap:20 }}>
+        <div style={{ display:"flex", alignItems:"center", gap:12 }}>
           <ThemePicker current={themeId} onChange={setThemeId} t={t}/>
-
           <div style={{ width:1, height:18, background:t.border }}/>
 
-          {user ? (<>
-            <button onClick={loadHistory} style={{ background:"none", border:"none", color:t.textMuted,
-              cursor:"pointer", fontSize:13, fontFamily:t.fontBody, transition:"color .15s" }}
-              onMouseOver={e=>e.target.style.color=t.textHeading}
-              onMouseOut={e=>e.target.style.color=t.textMuted}>
-              Sessions
-            </button>
-            <button onClick={() => setScreen("home")} style={{ background:"none", border:"none", color:t.textMuted,
-              cursor:"pointer", fontSize:13, fontFamily:t.fontBody, transition:"color .15s" }}
-              onMouseOver={e=>e.target.style.color=t.textHeading}
-              onMouseOut={e=>e.target.style.color=t.textMuted}>
-              Languages
-            </button>
-            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-              <div style={{ width:28, height:28, borderRadius:"50%", background:t.accentMuted,
-                border:`1px solid ${t.border}`, display:"flex", alignItems:"center", justifyContent:"center",
-                fontSize:12, color:t.accent, fontFamily:t.fontMono, fontWeight:600 }}>
-                {(user.name || user.email || "?")[0].toUpperCase()}
-              </div>
-              <button onClick={logout} style={{ background:"none", border:"none", color:t.textDim,
-                cursor:"pointer", fontSize:12, fontFamily:t.fontBody }}>
-                Sign out
+          {user ? (
+            <>
+              <button onClick={loadHistory} className="hide-mobile"
+                style={{ background:"none", border:"none", color:t.textMuted, cursor:"pointer",
+                  fontSize:13, fontFamily:t.fontBody, padding:"4px 8px" }}
+                onMouseOver={e=>e.target.style.color=t.textHeading}
+                onMouseOut={e=>e.target.style.color=t.textMuted}>
+                Sessions
               </button>
-            </div>
-          </>) : (
+              <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                <div style={{ width:28, height:28, borderRadius:"50%", background:t.accentMuted,
+                  border:`1px solid ${t.border}`, display:"flex", alignItems:"center", justifyContent:"center",
+                  fontSize:12, color:t.accent, fontFamily:t.fontMono, fontWeight:600, flexShrink:0 }}>
+                  {(user.name || user.email || "?")[0].toUpperCase()}
+                </div>
+                <button onClick={logout}
+                  style={{ background:"none", border:"none", color:t.textDim, cursor:"pointer",
+                    fontSize:12, fontFamily:t.fontBody }}>
+                  Sign out
+                </button>
+              </div>
+            </>
+          ) : (
             <button className="ghost-btn" onClick={() => setScreen("auth")}
               style={{ background:t.btnGhost, border:`1px solid ${t.border}`, borderRadius:8,
-                padding:"7px 18px", color:t.textMuted, fontSize:13, cursor:"pointer", fontFamily:t.fontBody }}>
+                padding:"7px 16px", color:t.textMuted, fontSize:13, cursor:"pointer", fontFamily:t.fontBody }}>
               Sign in
             </button>
           )}
@@ -996,43 +845,50 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ HOME ══ */}
         {screen === "home" && (
-          <div className="fade" style={{ maxWidth:1040, margin:"0 auto", padding:"72px 24px 48px" }}>
-            <div style={{ marginBottom:64 }}>
-              <div className="fade" style={{ fontSize:11, letterSpacing:3, color:t.textMuted, textTransform:"uppercase", marginBottom:20, fontFamily:t.fontMono }}>
-                Academic Language Instruction · Powered by Claude
+          <div className="fade" style={{ maxWidth:1040, margin:"0 auto", padding:"60px 20px 48px" }}>
+            <div style={{ marginBottom:48 }}>
+              <div className="fade" style={{ fontSize:10, letterSpacing:3, color:t.textMuted,
+                textTransform:"uppercase", marginBottom:16, fontFamily:t.fontMono }}>
+                AI Language Tutor · Powered by Claude
               </div>
-              <h1 className="fade2" style={{ fontSize:"clamp(52px,8vw,96px)", fontFamily:t.fonts,
+              <h1 className="fade2" style={{ fontSize:"clamp(44px,8vw,88px)", fontFamily:t.fonts,
                 fontWeight:400, margin:"0 0 4px", lineHeight:.95, color:t.textHeading, letterSpacing:-2 }}>
                 Lingua<span style={{ fontStyle:"italic", color:t.textMuted }}>AI</span>
               </h1>
-              <p className="fade3" style={{ fontSize:16, color:t.textMuted, margin:"24px 0 0", maxWidth:440, lineHeight:1.9, fontWeight:300 }}>
-                Rigorous AI-powered language instruction calibrated to your CEFR level, academic goals, and scholarly needs.
+              <p className="fade3" style={{ fontSize:15, color:t.textMuted, margin:"20px 0 0",
+                maxWidth:420, lineHeight:1.9, fontWeight:300 }}>
+                AI-powered language instruction calibrated to your CEFR level, goals, and learning style. 16 languages supported.
               </p>
-              <div className="fade3" style={{ display:"flex", gap:32, marginTop:28, flexWrap:"wrap" }}>
-                {["AI Adaptive Placement","CEFR-Aligned Curriculum","16 Languages","Persistent Sessions"].map(f => (
-                  <span key={f} style={{ fontSize:10, letterSpacing:2, color:t.textDim, textTransform:"uppercase", fontFamily:t.fontMono }}>{f}</span>
+              <div className="fade3" style={{ display:"flex", gap:24, marginTop:24, flexWrap:"wrap" }}>
+                {["AI Placement Exam","CEFR-Aligned","16 Languages","Persistent Sessions"].map(f => (
+                  <span key={f} style={{ fontSize:10, letterSpacing:1.8, color:t.textDim,
+                    textTransform:"uppercase", fontFamily:t.fontMono }}>{f}</span>
                 ))}
               </div>
             </div>
-            <div style={{ maxWidth:320, marginBottom:28 }}>
+
+            <div style={{ maxWidth:300, marginBottom:24 }}>
               <input value={search} onChange={e => setSearch(e.target.value)}
-                placeholder="Filter languages or regions…"
+                placeholder="Filter by language or region…"
                 style={{ width:"100%", background:t.bgInput, border:`1px solid ${t.borderInput}`,
-                  borderRadius:10, padding:"11px 16px", color:t.textHeading, fontSize:13, fontFamily:t.fontBody }}
+                  borderRadius:10, padding:"11px 16px", color:t.textHeading, fontSize:13,
+                  fontFamily:t.fontBody, outline:"none" }}
                 onFocus={e => e.target.style.borderColor = t.borderFocus}
                 onBlur={e  => e.target.style.borderColor = t.borderInput}
               />
             </div>
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(148px,1fr))", gap:10 }}>
+
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))", gap:10 }}>
               {filtered.map((l, i) => (
                 <button key={l.code} className="lang-card" onClick={() => pickLang(l)}
                   style={{ background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:14,
-                    padding:"22px 14px", color:t.text, textAlign:"center", display:"flex",
-                    flexDirection:"column", alignItems:"center", gap:6, cursor:"pointer",
-                    animation:`fadeUp .4s cubic-bezier(.16,1,.3,1) ${i*0.03}s both` }}>
-                  <div style={{ fontSize:30 }}>{l.flag}</div>
+                    padding:"20px 12px", color:t.text, textAlign:"center", display:"flex",
+                    flexDirection:"column", alignItems:"center", gap:7, cursor:"pointer",
+                    animation:`fadeUp .38s cubic-bezier(.16,1,.3,1) ${i*0.025}s both` }}>
+                  <div style={{ fontSize:28 }}>{l.flag}</div>
                   <div style={{ fontSize:13, fontWeight:500, color:t.textHeading, fontFamily:t.fontBody }}>{l.name}</div>
-                  <div style={{ fontSize:9, color:t.textDim, letterSpacing:1.5, textTransform:"uppercase", fontFamily:t.fontMono }}>{l.region}</div>
+                  <div style={{ fontSize:9, color:t.textDim, letterSpacing:1.5, textTransform:"uppercase",
+                    fontFamily:t.fontMono, lineHeight:1.4 }}>{l.region}</div>
                 </button>
               ))}
             </div>
@@ -1044,39 +900,49 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ QUESTIONNAIRE ══ */}
         {screen === "questionnaire" && lang && (
-          <div className="fade" style={{ maxWidth:620, margin:"0 auto", padding:"48px 24px" }}>
+          <div className="fade" style={{ maxWidth:620, margin:"0 auto", padding:"40px 20px" }}>
             <Bk onClick={() => setScreen("home")}/>
-            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase", marginBottom:16, fontFamily:t.fontMono }}>
+            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase",
+              marginBottom:12, fontFamily:t.fontMono }}>
               {lang.flag} {lang.name} · Step 1 of 2
             </div>
-            <h2 style={{ fontSize:36, fontFamily:t.fonts, fontWeight:400, marginBottom:10, color:t.textHeading, lineHeight:1.1 }}>
-              Define your objectives
+            <h2 style={{ fontSize:32, fontFamily:t.fonts, fontWeight:400, marginBottom:10,
+              color:t.textHeading, lineHeight:1.1 }}>
+              What are your goals?
             </h2>
-            <p style={{ color:t.textMuted, fontSize:14, lineHeight:1.85, marginBottom:32, fontWeight:300 }}>
-              Your AI tutor will calibrate lesson content, register, and domain-specific vocabulary to these goals.
+            <p style={{ color:t.textMuted, fontSize:14, lineHeight:1.85, marginBottom:28, fontWeight:300 }}>
+              Your tutor will tailor vocabulary, scenarios, and difficulty to match these objectives. Pick any that apply.
             </p>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:32 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(180px,1fr))", gap:10, marginBottom:28 }}>
               {GOALS.map(g => {
                 const sel = goals.includes(g.id);
                 return (
                   <button key={g.id} className="goal-card" onClick={() => setGoals(p => p.includes(g.id)?p.filter(x=>x!==g.id):[...p,g.id])}
                     style={{ background:sel?t.accentMuted:t.bgCard, border:`1px solid ${sel?t.accentBorder:t.border}`,
-                      borderRadius:12, padding:"18px 16px", textAlign:"left", cursor:"pointer", transition:"all .2s" }}>
-                    <div style={{ fontSize:20, marginBottom:10 }}>{g.icon}</div>
-                    <div style={{ fontSize:13, fontWeight:500, color:sel?t.accent:t.text, marginBottom:4, fontFamily:t.fontBody }}>{g.label}</div>
+                      borderRadius:12, padding:"16px 14px", textAlign:"left", cursor:"pointer" }}>
+                    <div style={{ fontSize:22, marginBottom:8 }}>{g.icon}</div>
+                    <div style={{ fontSize:13, fontWeight:500, color:sel?t.accent:t.text,
+                      marginBottom:4, fontFamily:t.fontBody }}>{g.label}</div>
                     <div style={{ fontSize:11, color:t.textMuted, lineHeight:1.6, fontWeight:300 }}>{g.desc}</div>
-                    {sel && <div style={{ marginTop:10, fontSize:9, color:t.textMuted, letterSpacing:2, fontFamily:t.fontMono }}>✓ SELECTED</div>}
+                    {sel && <div style={{ marginTop:8, fontSize:9, color:t.accent, letterSpacing:2,
+                      fontFamily:t.fontMono }}>✓ SELECTED</div>}
                   </button>
                 );
               })}
             </div>
-            <div style={{ ...card, padding:"20px 22px", marginBottom:16 }}>
-              <div style={{ fontSize:10, letterSpacing:2, color:t.textMuted, textTransform:"uppercase", marginBottom:12, fontFamily:t.fontMono }}>
-                Level assessment method
+
+            <div style={{ ...card, padding:"18px 20px" }}>
+              <div style={{ fontSize:10, letterSpacing:2, color:t.textMuted, textTransform:"uppercase",
+                marginBottom:12, fontFamily:t.fontMono }}>
+                How would you like to set your level?
               </div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                <PBtn onClick={startExam} style={{ flex:1, fontSize:13 }}>Take AI Placement Exam →</PBtn>
-                <GBtn onClick={() => setScreen("manual-level")} style={{ flex:1 }}>Set Level Manually</GBtn>
+                <PBtn onClick={startExam} style={{ flex:1, minWidth:160, fontSize:13 }}>
+                  AI Placement Exam →
+                </PBtn>
+                <GBtn onClick={() => setScreen("manual-level")} style={{ flex:1, minWidth:140 }}>
+                  Set Manually
+                </GBtn>
               </div>
             </div>
           </div>
@@ -1084,27 +950,32 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ MANUAL LEVEL ══ */}
         {screen === "manual-level" && lang && (
-          <div className="fade" style={{ maxWidth:560, margin:"0 auto", padding:"48px 24px" }}>
+          <div className="fade" style={{ maxWidth:520, margin:"0 auto", padding:"40px 20px" }}>
             <Bk onClick={() => setScreen("questionnaire")}/>
-            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase", marginBottom:16, fontFamily:t.fontMono }}>
+            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase",
+              marginBottom:12, fontFamily:t.fontMono }}>
               {lang.flag} {lang.name} · Self-Assessment
             </div>
-            <h2 style={{ fontSize:36, fontFamily:t.fonts, fontWeight:400, marginBottom:10, color:t.textHeading }}>Select your level</h2>
-            <p style={{ color:t.textMuted, fontSize:14, lineHeight:1.85, marginBottom:32, fontWeight:300 }}>
+            <h2 style={{ fontSize:32, fontFamily:t.fonts, fontWeight:400, marginBottom:10, color:t.textHeading }}>
+              Select your level
+            </h2>
+            <p style={{ color:t.textMuted, fontSize:14, lineHeight:1.85, marginBottom:28, fontWeight:300 }}>
               Choose the CEFR level that best reflects your current competence.
             </p>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
               {Object.entries(LEVELS).map(([li, lv]) => (
                 <button key={li} className="level-card" onClick={() => pickLevel(Number(li))}
                   style={{ background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:12,
-                    padding:"18px 22px", textAlign:"left", cursor:"pointer",
-                    display:"flex", alignItems:"center", gap:18 }}>
-                  <div style={{ fontSize:13, color:lv.color, width:36, flexShrink:0, fontWeight:500, fontFamily:t.fontMono }}>{lv.cefr}</div>
-                  <div style={{ flex:1 }}>
-                    <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, marginBottom:3, fontFamily:t.fontBody }}>{lv.name}</div>
-                    <div style={{ fontSize:11, color:t.textMuted, fontWeight:300, lineHeight:1.6 }}>{lv.desc}</div>
+                    padding:"16px 20px", textAlign:"left", cursor:"pointer",
+                    display:"flex", alignItems:"center", gap:16 }}>
+                  <div style={{ fontSize:13, color:lv.color, width:38, flexShrink:0, fontWeight:500,
+                    fontFamily:t.fontMono }}>{lv.cefr}</div>
+                  <div style={{ flex:1, minWidth:0 }}>
+                    <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, marginBottom:2,
+                      fontFamily:t.fontBody }}>{lv.name}</div>
+                    <div style={{ fontSize:11, color:t.textMuted, fontWeight:300, lineHeight:1.5 }}>{lv.desc}</div>
                   </div>
-                  <div style={{ fontSize:18, color:t.textDim }}>{lv.emoji}</div>
+                  <div style={{ fontSize:18, color:t.textDim, flexShrink:0 }}>{lv.emoji}</div>
                 </button>
               ))}
             </div>
@@ -1113,17 +984,19 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ EXAM ══ */}
         {screen === "exam" && lang && (
-          <div className="fade" style={{ maxWidth:640, margin:"0 auto", padding:"48px 24px" }}>
+          <div className="fade" style={{ maxWidth:620, margin:"0 auto", padding:"40px 20px" }}>
             <Bk onClick={() => setScreen("questionnaire")}/>
-            <div style={{ marginBottom:32 }}>
+            <div style={{ marginBottom:28 }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
-                <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase", fontFamily:t.fontMono }}>
+                <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase",
+                  fontFamily:t.fontMono }}>
                   {lang.flag} Placement Assessment
                 </div>
                 <div style={{ fontSize:11, color:t.textMuted, fontFamily:t.fontMono }}>{examIdx+1} / 10</div>
               </div>
-              <div style={{ height:2, background:t.border, borderRadius:1 }}>
-                <div style={{ height:"100%", width:`${examIdx/10*100}%`, background:t.accent, borderRadius:1, transition:"width .5s ease" }}/>
+              <div style={{ height:3, background:t.border, borderRadius:2 }}>
+                <div style={{ height:"100%", width:`${(examIdx/10)*100}%`, background:t.accent,
+                  borderRadius:2, transition:"width .5s ease" }}/>
               </div>
             </div>
 
@@ -1131,44 +1004,48 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
               const examQ = examPool[examIdx] || examPoolRef.current[examIdx];
               if (!examQ) return (
                 <div style={{ ...card, padding:40, textAlign:"center", color:t.textMuted }}>
-                  <button onClick={startExam} style={{ color:t.accent, background:"none", border:"none", cursor:"pointer", fontFamily:t.fontBody }}>Restart Exam</button>
+                  <button onClick={startExam} style={{ color:t.accent, background:"none", border:"none",
+                    cursor:"pointer", fontFamily:t.fontBody, fontSize:14 }}>Restart Exam</button>
                 </div>
               );
               return (
-                <div key={examIdx} className="fade" style={{ ...card, padding:"32px 28px" }}>
-                  <div style={{ display:"flex", gap:8, marginBottom:20, flexWrap:"wrap" }}>
+                <div key={examIdx} className="fade" style={{ ...card, padding:"28px 24px" }}>
+                  <div style={{ display:"flex", gap:8, marginBottom:18, flexWrap:"wrap" }}>
                     {examQ.topic && <Tag>{examQ.topic}</Tag>}
                     {examQ.cefr  && <Tag>{examQ.cefr}</Tag>}
                   </div>
-                  <h2 style={{ fontSize:18, fontFamily:t.fonts, fontWeight:400, marginBottom:26, lineHeight:1.6, color:t.textHeading }}>
+                  <h2 style={{ fontSize:17, fontFamily:t.fonts, fontWeight:400, marginBottom:24,
+                    lineHeight:1.65, color:t.textHeading }}>
                     {examQ.q}
                   </h2>
-                  <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:showExpl ? 20 : 0 }}>
+                  <div style={{ display:"flex", flexDirection:"column", gap:8, marginBottom:showExpl?18:0 }}>
                     {examQ.o.map((opt, i) => {
                       let bg = t.bgInput, border = t.border, color = t.text;
                       if (showExpl) {
-                        if (i === examQ.a)   { bg = t.successBg; border = t.successBorder; color = t.successText; }
-                        else if (i === chosenAns) { bg = t.wrongBg; border = t.wrongBorder; color = t.wrongText; }
+                        if (i === examQ.a)     { bg = t.successBg; border = t.successBorder; color = t.successText; }
+                        else if (i===chosenAns) { bg = t.wrongBg;   border = t.wrongBorder;   color = t.wrongText; }
                       }
                       return (
                         <button key={i} className="opt-btn" onClick={() => answer(i)} disabled={showExpl}
                           style={{ background:bg, border:`1px solid ${border}`, borderRadius:10,
-                            padding:"13px 18px", color, textAlign:"left", fontSize:13, cursor:"pointer",
+                            padding:"13px 16px", color, textAlign:"left", fontSize:13, cursor:"pointer",
                             display:"flex", alignItems:"center", gap:14, fontFamily:t.fontBody }}>
-                          <span style={{ fontSize:10, width:20, textAlign:"center", color:t.textDim, flexShrink:0, fontFamily:t.fontMono }}>
+                          <span style={{ fontSize:10, width:20, textAlign:"center", color:t.textDim,
+                            flexShrink:0, fontFamily:t.fontMono }}>
                             {["A","B","C","D"][i]}
                           </span>
-                          {opt}
-                          {showExpl && i === examQ.a && <span style={{ marginLeft:"auto" }}>✓</span>}
-                          {showExpl && i === chosenAns && i !== examQ.a && <span style={{ marginLeft:"auto" }}>✗</span>}
+                          <span style={{ flex:1 }}>{opt}</span>
+                          {showExpl && i===examQ.a   && <span>✓</span>}
+                          {showExpl && i===chosenAns && i!==examQ.a && <span>✗</span>}
                         </button>
                       );
                     })}
                   </div>
                   {showExpl && (
                     <div className="fade" style={{ background:t.bgInput, border:`1px solid ${t.border}`,
-                      borderRadius:10, padding:"14px 16px", marginTop:4 }}>
-                      <div style={{ fontSize:9, color:t.textMuted, letterSpacing:2, textTransform:"uppercase", marginBottom:6, fontFamily:t.fontMono }}>Explanation</div>
+                      borderRadius:10, padding:"14px 16px" }}>
+                      <div style={{ fontSize:9, color:t.textMuted, letterSpacing:2, textTransform:"uppercase",
+                        marginBottom:6, fontFamily:t.fontMono }}>Explanation</div>
                       <div style={{ fontSize:12, color:t.textMuted, lineHeight:1.7, fontWeight:300 }}>
                         The correct answer is <strong style={{color:t.successText}}>{examQ.o[examQ.a]}</strong>. {examQ.topic} — {examQ.cefr} level.
                       </div>
@@ -1182,28 +1059,36 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ RESULTS ══ */}
         {screen === "results" && level && (
-          <div className="fade" style={{ maxWidth:520, margin:"0 auto", padding:"72px 24px", textAlign:"center" }}>
-            <div style={{ fontSize:10, letterSpacing:4, color:t.textMuted, textTransform:"uppercase", marginBottom:20, fontFamily:t.fontMono }}>
+          <div className="fade" style={{ maxWidth:500, margin:"0 auto", padding:"60px 20px", textAlign:"center" }}>
+            <div style={{ fontSize:10, letterSpacing:4, color:t.textMuted, textTransform:"uppercase",
+              marginBottom:16, fontFamily:t.fontMono }}>
               {lang?.flag} {lang?.name} · Assessment Complete
             </div>
-            <div style={{ fontSize:11, color:level.color, fontFamily:t.fontMono, letterSpacing:2, textTransform:"uppercase", marginBottom:8 }}>
+            <div style={{ fontSize:11, color:level.color, fontFamily:t.fontMono, letterSpacing:2,
+              textTransform:"uppercase", marginBottom:8 }}>
               CEFR {level.cefr}
             </div>
-            <h2 style={{ fontSize:52, fontFamily:t.fonts, fontWeight:400, margin:"0 0 12px", color:t.textHeading, lineHeight:1 }}>
+            <h2 style={{ fontSize:48, fontFamily:t.fonts, fontWeight:400, margin:"0 0 12px",
+              color:t.textHeading, lineHeight:1 }}>
               {level.name}
             </h2>
-            <p style={{ color:t.textMuted, fontSize:14, marginBottom:8, lineHeight:1.8, fontWeight:300 }}>{level.desc}</p>
+            <p style={{ color:t.textMuted, fontSize:14, marginBottom:8, lineHeight:1.8, fontWeight:300 }}>
+              {level.desc}
+            </p>
             {level.score !== null
-              ? <p style={{ color:t.textDim, fontSize:12, marginBottom:44, letterSpacing:1, fontFamily:t.fontMono }}>Score: {level.score}/10</p>
-              : <p style={{ color:t.textDim, fontSize:12, marginBottom:44, letterSpacing:1, fontFamily:t.fontMono }}>Self-assessed</p>
+              ? <p style={{ color:t.textDim, fontSize:12, marginBottom:36, letterSpacing:1, fontFamily:t.fontMono }}>Score: {level.score}/10</p>
+              : <p style={{ color:t.textDim, fontSize:12, marginBottom:36, letterSpacing:1, fontFamily:t.fontMono }}>Self-assessed</p>
             }
-            <div style={{ ...card, padding:"24px 26px", marginBottom:32 }}>
+
+            <div style={{ ...card, padding:"22px", marginBottom:28 }}>
               {level.score !== null && (
-                <div style={{ display:"flex", gap:6, justifyContent:"center", flexWrap:"wrap", marginBottom:goals.length>0?20:0 }}>
-                  {Array.from({ length:10 }).map((_,i) => (
-                    <div key={i} style={{ width:30, height:30, borderRadius:6, display:"flex", alignItems:"center", justifyContent:"center",
+                <div style={{ display:"flex", gap:6, justifyContent:"center", flexWrap:"wrap",
+                  marginBottom:goals.length>0?18:0 }}>
+                  {Array.from({length:10}).map((_,i) => (
+                    <div key={i} style={{ width:28, height:28, borderRadius:6, display:"flex",
+                      alignItems:"center", justifyContent:"center",
                       background: i<level.score ? t.accentMuted : t.bgInput,
-                      border: `1px solid ${i<level.score ? t.accentBorder : t.border}`,
+                      border:`1px solid ${i<level.score ? t.accentBorder : t.border}`,
                       fontSize:11, color: i<level.score ? t.accent : t.textDim }}>
                       {i < level.score ? "✓" : "·"}
                     </div>
@@ -1211,44 +1096,62 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
                 </div>
               )}
               {goals.length > 0 && (
-                <div style={{ borderTop: level.score!==null ? `1px solid ${t.border}` : "none", paddingTop: level.score!==null?18:0 }}>
-                  <div style={{ fontSize:9, letterSpacing:2, color:t.textMuted, textTransform:"uppercase", marginBottom:10, fontFamily:t.fontMono }}>
-                    Learning objectives
-                  </div>
+                <div style={{ borderTop:level.score!==null?`1px solid ${t.border}`:"none",
+                  paddingTop:level.score!==null?16:0 }}>
+                  <div style={{ fontSize:9, letterSpacing:2, color:t.textMuted, textTransform:"uppercase",
+                    marginBottom:10, fontFamily:t.fontMono }}>Learning objectives</div>
                   <div style={{ display:"flex", flexWrap:"wrap", gap:6, justifyContent:"center" }}>
-                    {goals.map(gid => { const g = GOALS.find(x => x.id===gid); return g ? (
-                      <span key={gid} style={{ fontSize:9, padding:"3px 10px", borderRadius:20, background:t.accentMuted,
-                        color:t.textMuted, letterSpacing:1.5, textTransform:"uppercase",
-                        border:`1px solid ${t.border}`, fontFamily:t.fontMono }}>
-                        {g.label}
-                      </span>) : null;
+                    {goals.map(gid => {
+                      const g = GOALS.find(x => x.id===gid);
+                      return g ? (
+                        <span key={gid} style={{ fontSize:9, padding:"3px 10px", borderRadius:20,
+                          background:t.accentMuted, color:t.textMuted, letterSpacing:1.5,
+                          textTransform:"uppercase", border:`1px solid ${t.border}`, fontFamily:t.fontMono }}>
+                          {g.label}
+                        </span>
+                      ) : null;
                     })}
                   </div>
                 </div>
               )}
             </div>
+
             <div style={{ display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
               <GBtn onClick={startExam}>Retake Exam</GBtn>
               <GBtn onClick={() => setScreen("manual-level")}>Change Level</GBtn>
               <PBtn onClick={startChat}>Begin Session →</PBtn>
             </div>
-            {!user && <p style={{ color:t.textDim, fontSize:10, marginTop:18, letterSpacing:1.5, textTransform:"uppercase", fontFamily:t.fontMono }}>Sign in to persist sessions</p>}
+            {!user && (
+              <p style={{ color:t.textDim, fontSize:10, marginTop:16, letterSpacing:1.5,
+                textTransform:"uppercase", fontFamily:t.fontMono }}>
+                Sign in to save your sessions
+              </p>
+            )}
           </div>
         )}
 
         {/* ══ CHAT ══ */}
         {screen === "chat" && (
-          <div style={{ display:"flex", flexDirection:"column", height:"calc(100vh - 54px)" }}>
+          <div style={{ display:"flex", flexDirection:"column", height:"calc(100dvh - 54px)" }}>
+
             {/* Chat header */}
-            <div style={{ padding:"10px 24px", borderBottom:`1px solid ${t.border}`,
+            <div style={{ padding:"10px 18px", borderBottom:`1px solid ${t.border}`,
               background:t.bgNav, backdropFilter:"blur(20px)",
               display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0 }}>
-              <div style={{ display:"flex", alignItems:"center", gap:14 }}>
-                <button onClick={() => setScreen("home")} style={{ background:"none", border:"none", color:t.textMuted, cursor:"pointer", fontSize:16 }}>←</button>
-                <span style={{ fontSize:20 }}>{lang?.flag}</span>
+              <div style={{ display:"flex", alignItems:"center", gap:12 }}>
+                <button onClick={() => setScreen("home")}
+                  style={{ background:"none", border:`1px solid ${t.border}`, borderRadius:8,
+                    width:32, height:32, display:"flex", alignItems:"center", justifyContent:"center",
+                    color:t.textMuted, cursor:"pointer", fontSize:16, flexShrink:0 }}>
+                  ←
+                </button>
+                <div style={{ fontSize:22, flexShrink:0 }}>{lang?.flag}</div>
                 <div>
-                  <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, fontFamily:t.fontBody }}>{lang?.name}</div>
-                  <div style={{ fontSize:10, color:t.textMuted, letterSpacing:1.5, textTransform:"uppercase", fontFamily:t.fontMono }}>
+                  <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, fontFamily:t.fontBody }}>
+                    {lang?.name}
+                  </div>
+                  <div style={{ fontSize:10, color:t.textMuted, letterSpacing:1.5, textTransform:"uppercase",
+                    fontFamily:t.fontMono }}>
                     {level?.cefr} · {level?.name}
                   </div>
                 </div>
@@ -1256,7 +1159,8 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
               <div style={{ display:"flex", alignItems:"center", gap:8 }}>
                 <div style={{ width:6, height:6, borderRadius:"50%",
                   background:loading?t.dotLoading:t.dotReady,
-                  boxShadow:`0 0 8px ${loading?t.dotLoading:t.dotReady}`, transition:"all .3s" }}/>
+                  boxShadow:`0 0 8px ${loading?t.dotLoading:t.dotReady}`,
+                  transition:"all .3s" }}/>
                 <span style={{ fontSize:9, color:t.textDim, letterSpacing:2, fontFamily:t.fontMono }}>
                   {loading ? "THINKING" : "READY"}
                 </span>
@@ -1264,39 +1168,43 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
             </div>
 
             {/* Messages */}
-            <div style={{ flex:1, overflowY:"auto", padding:"28px 22px",
-              maxWidth:760, width:"100%", margin:"0 auto", boxSizing:"border-box" }}>
+            <div style={{ flex:1, overflowY:"auto", padding:"24px 18px",
+              maxWidth:740, width:"100%", margin:"0 auto", boxSizing:"border-box" }}>
               {msgs.map((m, i) => (
                 <div key={i} style={{ display:"flex", justifyContent:m.role==="user"?"flex-end":"flex-start",
-                  marginBottom:20, animation:"fadeUp .3s ease both" }}>
+                  marginBottom:18, animation:"fadeUp .3s ease both" }}>
                   {m.role==="assistant" && (
-                    <div style={{ width:30, height:30, borderRadius:8, flexShrink:0,
+                    <div style={{ width:32, height:32, borderRadius:8, flexShrink:0,
                       background:t.accentMuted, border:`1px solid ${t.border}`,
                       display:"flex", alignItems:"center", justifyContent:"center",
-                      fontSize:14, marginRight:10, marginTop:3 }}>
+                      fontSize:16, marginRight:10, marginTop:2 }}>
                       {lang?.flag}
                     </div>
                   )}
                   <div style={{
-                    maxWidth:"76%",
+                    maxWidth:"80%",
                     background: m.role==="user" ? t.bgUserMsg : t.bgMsg,
-                    border: `1px solid ${m.role==="user" ? t.borderUserMsg : t.borderAssistMsg}`,
-                    borderRadius: m.role==="user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                    padding:"12px 16px", fontSize:13, lineHeight:1.85,
+                    border:`1px solid ${m.role==="user" ? t.borderUserMsg : t.borderAssistMsg}`,
+                    borderRadius: m.role==="user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+                    padding:"12px 16px", fontSize:14, lineHeight:1.85,
                     color:t.text, whiteSpace:"pre-wrap", fontWeight:300, fontFamily:t.fontBody,
+                    wordBreak:"break-word",
                   }}>
                     {m.content}
                   </div>
                 </div>
               ))}
+
               {loading && (
-                <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:20 }}>
-                  <div style={{ width:30, height:30, borderRadius:8, background:t.accentMuted,
-                    border:`1px solid ${t.border}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:14 }}>
+                <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:18 }}>
+                  <div style={{ width:32, height:32, borderRadius:8, background:t.accentMuted,
+                    border:`1px solid ${t.border}`, display:"flex", alignItems:"center",
+                    justifyContent:"center", fontSize:16, flexShrink:0 }}>
                     {lang?.flag}
                   </div>
                   <div style={{ background:t.bgMsg, border:`1px solid ${t.borderAssistMsg}`,
-                    borderRadius:"16px 16px 16px 4px", padding:"12px 18px", display:"flex", gap:5, alignItems:"center" }}>
+                    borderRadius:"18px 18px 18px 4px", padding:"13px 18px",
+                    display:"flex", gap:5, alignItems:"center" }}>
                     <div className="dot" style={{ width:5, height:5, borderRadius:"50%", background:t.textMuted }}/>
                     <div className="dot" style={{ width:5, height:5, borderRadius:"50%", background:t.textMuted }}/>
                     <div className="dot" style={{ width:5, height:5, borderRadius:"50%", background:t.textMuted }}/>
@@ -1306,39 +1214,55 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
               <div ref={chatEnd}/>
             </div>
 
-            {/* Input — raw input element, NOT a sub-component, so no remount */}
-            <div style={{ padding:"12px 22px 20px", borderTop:`1px solid ${t.border}`,
+            {/* Input bar */}
+            <div style={{ padding:"10px 18px 16px", borderTop:`1px solid ${t.border}`,
               background:t.bgNav, backdropFilter:"blur(20px)", flexShrink:0 }}>
-              <div style={{ maxWidth:760, margin:"0 auto", display:"flex", gap:10 }}>
-                <input
+              <div style={{ maxWidth:740, margin:"0 auto", display:"flex", gap:10, alignItems:"flex-end" }}>
+                <textarea
                   ref={inputRef}
                   value={input}
                   onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   placeholder={`Message in English or ${lang?.name}…`}
                   disabled={loading}
+                  rows={1}
                   style={{
                     flex:1, background:t.bgInput, border:`1px solid ${t.borderInput}`,
-                    borderRadius:10, padding:"12px 16px", color:t.textHeading,
-                    fontSize:13, fontFamily:t.fontBody, transition:"border-color .2s",
-                    opacity: loading ? .6 : 1,
+                    borderRadius:12, padding:"13px 16px", color:t.textHeading,
+                    fontSize:14, fontFamily:t.fontBody, transition:"border-color .2s",
+                    opacity:loading ? .6 : 1, resize:"none", outline:"none",
+                    overflowY:"hidden", lineHeight:1.5, maxHeight:120,
+                    overflowX:"hidden",
                   }}
                   onFocus={e => e.target.style.borderColor = t.borderFocus}
                   onBlur={e  => e.target.style.borderColor = t.borderInput}
+                  onInput={e => {
+                    e.target.style.height = "auto";
+                    e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+                  }}
                 />
-                <button onClick={send} disabled={loading || !input.trim()} className="primary-btn"
-                  style={{ background: input.trim()&&!loading ? t.btnPrimary : t.bgInput,
+                <button
+                  onClick={handleSend}
+                  disabled={loading || !input.trim()}
+                  className="primary-btn"
+                  style={{
+                    background: input.trim() && !loading ? t.btnPrimary : t.bgInput,
                     border:`1px solid ${input.trim()&&!loading ? "transparent" : t.border}`,
-                    borderRadius:10, padding:"12px 18px",
+                    borderRadius:12, width:46, height:46, flexShrink:0,
                     color: input.trim()&&!loading ? t.btnPrimaryText : t.textDim,
-                    fontSize:16, fontWeight:600, cursor: input.trim()&&!loading ? "pointer" : "not-allowed",
-                    opacity: loading ? .5 : 1 }}>
-                  →
+                    fontSize:18, fontWeight:700, cursor:input.trim()&&!loading?"pointer":"not-allowed",
+                    opacity:loading?.5:1, display:"flex", alignItems:"center", justifyContent:"center",
+                  }}>
+                  {loading ? (
+                    <div style={{ width:16, height:16, border:`2px solid ${t.textDim}`,
+                      borderTopColor:t.accent, borderRadius:"50%",
+                      animation:"spin .7s linear infinite" }}/>
+                  ) : "↑"}
                 </button>
               </div>
-              <div style={{ textAlign:"center", marginTop:8, fontSize:9, color:t.textVeryDim,
+              <div style={{ textAlign:"center", marginTop:7, fontSize:9, color:t.textVeryDim,
                 letterSpacing:2, textTransform:"uppercase", fontFamily:t.fontMono }}>
-                Enter to send · {lang?.name} or English
+                Enter to send · Shift+Enter for new line · {lang?.name} or English
               </div>
             </div>
           </div>
@@ -1346,13 +1270,19 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
 
         {/* ══ HISTORY ══ */}
         {screen === "history" && (
-          <div className="fade" style={{ maxWidth:680, margin:"0 auto", padding:"48px 24px" }}>
+          <div className="fade" style={{ maxWidth:660, margin:"0 auto", padding:"40px 20px" }}>
             <Bk onClick={() => setScreen("home")}/>
-            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase", marginBottom:16, fontFamily:t.fontMono }}>
+            <div style={{ fontSize:10, letterSpacing:3, color:t.textMuted, textTransform:"uppercase",
+              marginBottom:12, fontFamily:t.fontMono }}>
               Your Sessions
             </div>
-            <h2 style={{ fontSize:36, fontFamily:t.fonts, fontWeight:400, marginBottom:8, color:t.textHeading }}>Session History</h2>
-            <p style={{ color:t.textMuted, fontSize:14, marginBottom:36, fontWeight:300 }}>Resume any previous learning session.</p>
+            <h2 style={{ fontSize:32, fontFamily:t.fonts, fontWeight:400, marginBottom:8, color:t.textHeading }}>
+              Session History
+            </h2>
+            <p style={{ color:t.textMuted, fontSize:14, marginBottom:32, fontWeight:300 }}>
+              Resume any previous learning session.
+            </p>
+
             {history.length === 0 && (
               <div style={{ ...card, padding:48, textAlign:"center", color:t.textDim }}>
                 <div style={{ fontSize:32, marginBottom:12 }}>◦</div>
@@ -1363,17 +1293,19 @@ First message: Greet them warmly. Naturally acknowledge their level and goals (n
               {history.map(c => (
                 <button key={c.id} className="history-item" onClick={() => openChat(c)}
                   style={{ background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:14,
-                    padding:"20px 24px", textAlign:"left", display:"flex", alignItems:"center", justifyContent:"space-between", cursor:"pointer" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:14 }}>
-                    <span style={{ fontSize:24 }}>{c.flag}</span>
-                    <div>
-                      <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, marginBottom:4, fontFamily:t.fontBody }}>{c.langName}</div>
+                    padding:"18px 20px", textAlign:"left", display:"flex", alignItems:"center",
+                    justifyContent:"space-between", cursor:"pointer", gap:12 }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:14, minWidth:0 }}>
+                    <span style={{ fontSize:24, flexShrink:0 }}>{c.flag}</span>
+                    <div style={{ minWidth:0 }}>
+                      <div style={{ fontSize:14, fontWeight:500, color:t.textHeading, marginBottom:3,
+                        fontFamily:t.fontBody }}>{c.langName}</div>
                       <div style={{ fontSize:10, color:t.textMuted, letterSpacing:1, fontFamily:t.fontMono }}>
                         {c.cefr||""} {c.levelName} · {c.messages?.length||0} messages
                       </div>
                     </div>
                   </div>
-                  <div style={{ textAlign:"right" }}>
+                  <div style={{ textAlign:"right", flexShrink:0 }}>
                     <div style={{ fontSize:10, color:t.textDim, marginBottom:4, fontFamily:t.fontMono }}>
                       {new Date(c.updatedAt).toLocaleDateString("en-US",{month:"short",day:"numeric"})}
                     </div>
