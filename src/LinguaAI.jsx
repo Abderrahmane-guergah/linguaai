@@ -845,53 +845,118 @@ First message: Greet them warmly in ${lang?.name} first (with translation), natu
 
         {/* ══ HOME ══ */}
         {screen === "home" && (
-          <div className="fade" style={{ maxWidth:1040, margin:"0 auto", padding:"60px 20px 48px" }}>
-            <div style={{ marginBottom:48 }}>
-              <div className="fade" style={{ fontSize:10, letterSpacing:3, color:t.textMuted,
-                textTransform:"uppercase", marginBottom:16, fontFamily:t.fontMono }}>
-                AI Language Tutor · Powered by Claude
+          <div className="fade" style={{ minHeight:"calc(100vh - 54px)", display:"flex", flexDirection:"column" }}>
+
+            {/* ── Two-column layout ── */}
+            <div style={{
+              flex:1, display:"grid",
+              gridTemplateColumns:"minmax(0,1fr) minmax(0,1fr)",
+              gap:0,
+            }}>
+
+              {/* LEFT — Hero */}
+              <div style={{
+                padding:"64px 48px 48px",
+                display:"flex", flexDirection:"column", justifyContent:"center",
+                borderRight:`1px solid ${t.border}`,
+                position:"sticky", top:54, height:"calc(100vh - 54px)",
+              }}>
+                <div className="fade" style={{ fontSize:10, letterSpacing:3, color:t.textMuted,
+                  textTransform:"uppercase", marginBottom:20, fontFamily:t.fontMono }}>
+                  AI Language Tutor · Powered by Claude
+                </div>
+
+                <h1 className="fade2" style={{ fontSize:"clamp(52px,5.5vw,96px)", fontFamily:t.fonts,
+                  fontWeight:400, margin:"0 0 8px", lineHeight:.92, color:t.textHeading, letterSpacing:-3 }}>
+                  Lingua<span style={{ fontStyle:"italic", color:t.textMuted }}>AI</span>
+                </h1>
+
+                <div style={{ width:40, height:2, background:t.accent, borderRadius:1, margin:"28px 0" }}/>
+
+                <p className="fade3" style={{ fontSize:15, color:t.textMuted, maxWidth:380,
+                  lineHeight:1.9, fontWeight:300, marginBottom:36 }}>
+                  AI-powered language instruction calibrated to your CEFR level, goals, and learning style.
+                </p>
+
+                {/* Stats */}
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:40 }}>
+                  {[
+                    { num:"16", label:"Languages" },
+                    { num:"7", label:"CEFR Levels" },
+                    { num:"AI", label:"Placement Exam" },
+                    { num:"∞", label:"Session History" },
+                  ].map(s => (
+                    <div key={s.label} style={{ background:t.bgCard, border:`1px solid ${t.border}`,
+                      borderRadius:12, padding:"16px 18px" }}>
+                      <div style={{ fontSize:24, fontFamily:t.fonts, color:t.accent, fontWeight:400,
+                        lineHeight:1, marginBottom:4 }}>{s.num}</div>
+                      <div style={{ fontSize:10, color:t.textMuted, letterSpacing:2,
+                        textTransform:"uppercase", fontFamily:t.fontMono }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Feature pills */}
+                <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
+                  {["CEFR-Aligned","Native Scripts","Goal-Adaptive"].map(f => (
+                    <span key={f} style={{ fontSize:9, letterSpacing:2, color:t.textDim,
+                      textTransform:"uppercase", fontFamily:t.fontMono, padding:"5px 12px",
+                      background:t.accentMuted, border:`1px solid ${t.border}`, borderRadius:20 }}>
+                      {f}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h1 className="fade2" style={{ fontSize:"clamp(44px,8vw,88px)", fontFamily:t.fonts,
-                fontWeight:400, margin:"0 0 4px", lineHeight:.95, color:t.textHeading, letterSpacing:-2 }}>
-                Lingua<span style={{ fontStyle:"italic", color:t.textMuted }}>AI</span>
-              </h1>
-              <p className="fade3" style={{ fontSize:15, color:t.textMuted, margin:"20px 0 0",
-                maxWidth:420, lineHeight:1.9, fontWeight:300 }}>
-                AI-powered language instruction calibrated to your CEFR level, goals, and learning style. 16 languages supported.
-              </p>
-              <div className="fade3" style={{ display:"flex", gap:24, marginTop:24, flexWrap:"wrap" }}>
-                {["AI Placement Exam","CEFR-Aligned","16 Languages","Persistent Sessions"].map(f => (
-                  <span key={f} style={{ fontSize:10, letterSpacing:1.8, color:t.textDim,
-                    textTransform:"uppercase", fontFamily:t.fontMono }}>{f}</span>
-                ))}
+
+              {/* RIGHT — Language grid */}
+              <div className="home-right" style={{ padding:"32px 32px 48px", overflowY:"auto", height:"calc(100vh - 54px)" }}>
+
+                {/* Search */}
+                <div style={{ marginBottom:20, position:"sticky", top:0, zIndex:10,
+                  background:t.bg, paddingTop:8, paddingBottom:12 }}>
+                  <input value={search} onChange={e => setSearch(e.target.value)}
+                    placeholder="Search languages or regions…"
+                    style={{ width:"100%", background:t.bgInput, border:`1px solid ${t.borderInput}`,
+                      borderRadius:10, padding:"11px 16px", color:t.textHeading, fontSize:13,
+                      fontFamily:t.fontBody, outline:"none" }}
+                    onFocus={e => e.target.style.borderColor = t.borderFocus}
+                    onBlur={e  => e.target.style.borderColor = t.borderInput}
+                  />
+                </div>
+
+                <div style={{ fontSize:9, letterSpacing:2, color:t.textDim, textTransform:"uppercase",
+                  fontFamily:t.fontMono, marginBottom:16 }}>
+                  {filtered.length} language{filtered.length !== 1 ? "s" : ""} available — click to begin
+                </div>
+
+                {/* Grid */}
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(130px,1fr))", gap:10 }}>
+                  {filtered.map((l, i) => (
+                    <button key={l.code} className="lang-card" onClick={() => pickLang(l)}
+                      style={{ background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:14,
+                        padding:"22px 12px", color:t.text, textAlign:"center", display:"flex",
+                        flexDirection:"column", alignItems:"center", gap:8, cursor:"pointer",
+                        animation:`fadeUp .35s cubic-bezier(.16,1,.3,1) ${i*0.02}s both` }}>
+                      <div style={{ fontSize:30 }}>{l.flag}</div>
+                      <div style={{ fontSize:13, fontWeight:500, color:t.textHeading, fontFamily:t.fontBody }}>
+                        {l.name}
+                      </div>
+                      <div style={{ fontSize:9, color:t.textDim, letterSpacing:1.5, textTransform:"uppercase",
+                        fontFamily:t.fontMono, lineHeight:1.4 }}>{l.region}</div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div style={{ maxWidth:300, marginBottom:24 }}>
-              <input value={search} onChange={e => setSearch(e.target.value)}
-                placeholder="Filter by language or region…"
-                style={{ width:"100%", background:t.bgInput, border:`1px solid ${t.borderInput}`,
-                  borderRadius:10, padding:"11px 16px", color:t.textHeading, fontSize:13,
-                  fontFamily:t.fontBody, outline:"none" }}
-                onFocus={e => e.target.style.borderColor = t.borderFocus}
-                onBlur={e  => e.target.style.borderColor = t.borderInput}
-              />
-            </div>
-
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))", gap:10 }}>
-              {filtered.map((l, i) => (
-                <button key={l.code} className="lang-card" onClick={() => pickLang(l)}
-                  style={{ background:t.bgCard, border:`1px solid ${t.border}`, borderRadius:14,
-                    padding:"20px 12px", color:t.text, textAlign:"center", display:"flex",
-                    flexDirection:"column", alignItems:"center", gap:7, cursor:"pointer",
-                    animation:`fadeUp .38s cubic-bezier(.16,1,.3,1) ${i*0.025}s both` }}>
-                  <div style={{ fontSize:28 }}>{l.flag}</div>
-                  <div style={{ fontSize:13, fontWeight:500, color:t.textHeading, fontFamily:t.fontBody }}>{l.name}</div>
-                  <div style={{ fontSize:9, color:t.textDim, letterSpacing:1.5, textTransform:"uppercase",
-                    fontFamily:t.fontMono, lineHeight:1.4 }}>{l.region}</div>
-                </button>
-              ))}
-            </div>
+            {/* Mobile fallback — stacked */}
+            <style>{`
+              @media(max-width:700px){
+                .home-grid { grid-template-columns: 1fr !important; }
+                .home-left { position:static !important; height:auto !important; border-right:none !important; border-bottom:1px solid ${t.border} !important; padding:40px 20px 32px !important; }
+                .home-right { height:auto !important; padding:24px 20px 48px !important; }
+              }
+            `}</style>
           </div>
         )}
 
